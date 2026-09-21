@@ -1,0 +1,252 @@
+/* ============================================================
+   Menu (catalog) page — Figma node "menu"
+   ------------------------------------------------------------
+   Structure:
+     .menu (container) > .menu__offer (title + category tabs)
+       + .menu__grid (8 product cards) + .menu__more (refresh button)
+
+   Desktop (1440):
+     offer 236px = title (60/75, max 800 wide, 2 lines) + 40 + tabs 46
+     grid 1052px  = 4×310px cards in 2 rows, gap 40 (cards 310×506:
+                    310 square image radius 40 + 196px body, padding 20)
+     No load-more button on desktop — all 8 products are shown (Figma).
+   Tablet/mobile (≤1360 / ≤640): the grid locks cards at 310 and drops
+     to 2 columns, then 1; below 768px only the first 4 cards render and
+     a 60px round "refresh" (load-more) button appears 58px below the
+     grid, exactly as the Figma tablet/mobile frames show (static, Part 1).
+
+   Card look: transparent on the cream page with a 1px border in light
+   mode; a surface fill in dark mode (tokens switch automatically).
+   ============================================================ */
+
+.menu {
+	margin-top: var(--space-2xl); /* 100px below the fixed header */
+	margin-bottom: var(--space-2xl); /* 100px gap to the footer */
+}
+
+/* ---------- Title + category tabs ---------- */
+
+.menu__offer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-xl); /* 40px title → tabs (Figma) */
+	margin-bottom: var(--space-xl); /* 40px tabs → grid (Figma) */
+}
+
+.menu__title {
+	max-width: 800px; /* Figma places the 60px title in an 800px box (2 lines) */
+	margin-inline: auto;
+	text-align: center;
+	color: var(--color-text-primary);
+	/* Global h2 tokens (60/75 on desktop & tablet, fluid to 32/40 at 380px).
+	   h1's global 72px would push the title to 3 lines, so the catalog
+	   heading is explicitly styled with the h2 scale. */
+	font-size: var(--font-size-h2);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-h2);
+}
+
+.menu__tabs {
+	display: flex;
+	gap: var(--space-md); /* 16px between pills (Figma) */
+}
+
+.menu__tab {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2xs); /* 4px icon → label (Figma ~3px) */
+	height: 46px;
+	padding-inline: 14px; /* Figma pill padding ~13/16px, pills: 115/90/124 */
+	border: 1px solid var(--color-border-primary);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary);
+	font-size: var(--font-size-button);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-button);
+	transition:
+		background-color var(--transition),
+		border-color var(--transition),
+		color var(--transition);
+}
+
+/* Active pill — filled with the surface color (Figma #665f55 / dark #403f3d) */
+.menu__tab--active {
+	border-color: var(--color-surface);
+	background-color: var(--color-surface);
+	color: var(--color-text-inverse);
+}
+
+.menu__tab-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 30px;
+	width: 30px;
+	height: 30px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-border-primary); /* inactive circle #c1b6ad */
+	font-size: var(--font-size-body);
+	line-height: 1;
+}
+
+.menu__tab--active .menu__tab-icon {
+	background-color: var(
+		--color-text-inverse
+	); /* cream circle on the filled pill */
+}
+
+/* ---------- Product grid ---------- */
+
+.menu__grid {
+	display: grid;
+	grid-template-columns: repeat(
+		4,
+		minmax(0, 1fr)
+	); /* 4 across at ≥1360 viewport */
+	justify-content: center;
+	gap: var(--space-xl); /* 40px both axes (Figma) */
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.product-card {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 310px;
+	margin-inline: auto;
+	border: 1px solid var(--color-border-primary);
+	border-radius: var(--radius-large); /* 40px */
+	background-color: transparent;
+	/* The card is transparent over the cream page in light mode; dark mode
+	   swaps it to the surface color so it stands out from the page. */
+	cursor: pointer;
+}
+
+.product-card:hover .product-card__img {
+	transform: scale(1);
+}
+
+[data-theme='dark'] .product-card {
+	background-color: var(--color-surface);
+}
+
+.product-card__media {
+	aspect-ratio: 1; /* square image box, 310×310 at full card width */
+	overflow: hidden; /* clips the image to the 40px card radius */
+	border-radius: var(--radius-large);
+}
+
+.product-card__img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transform: scale(1.1);
+	transition: transform var(--transition);
+}
+
+.product-card__body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-sm); /* 12px between name / desc / price (Figma) */
+	height: 196px; /* name 30 + desc 72 + price 30 + gaps 24 + padding 40 */
+	padding: 20px;
+}
+
+.product-card__name,
+.product-card__price {
+	color: var(--color-text-primary);
+	font-size: var(--font-size-h3);
+	font-weight: 600;
+	line-height: 1.5;
+}
+
+.product-card__desc {
+	height: 72px; /* fixed 3-line block — Figma anchors the price regardless of text length */
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-primary);
+}
+
+/* ---------- Load-more (refresh) button — hidden on desktop ---------- */
+
+.menu__more {
+	display: none;
+	justify-content: center;
+	margin-top: 40px; /* Figma gap from grid to the button on tablet/mobile */
+}
+
+.menu__refresh {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary); /* icon stroke */
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+.menu__refresh:hover {
+	background-color: var(--color-border-inverse);
+	color: var(--color-text-inverse);
+}
+
+/* ---------- Responsive ---------- */
+
+/* Below 1360px the 4×310 grid no longer fits with 40px gaps, so the design
+   collapses to the tablet frame's 2-column layout: first 4 cards + a refresh
+   (load-more) button, exactly as the Figma tablet/mobile frames show. */
+@media (max-width: 1360px) {
+	.menu__grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		max-width: 980px;
+		margin-inline: auto;
+	}
+
+	.product-card:nth-child(n + 7) {
+		display: none;
+	}
+
+	.menu__more {
+		display: flex;
+	}
+}
+
+@media (max-width: 1080px) {
+	.menu__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		max-width: 660px;
+		margin-inline: auto;
+	}
+
+	.product-card:nth-child(n + 5) {
+		display: none;
+	}
+
+	.menu__more {
+		display: flex;
+	}
+}
+
+@media (max-width: 640px) {
+	.menu__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	/* Compact pills so all three category tabs fit a 348px content column
+	   (Figma mobile tabs: 345px wide in total). */
+	.menu__tab {
+		padding-inline: 8px;
+		gap: var(--space-2xs);
+	}
+}
