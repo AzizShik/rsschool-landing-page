@@ -1,0 +1,9 @@
+{
+	"mcp": {
+		"composio": {
+			"type": "remote",
+			"url": "https://connect.composio.dev/mcp",
+			"enabled": true
+		}
+	}
+}
