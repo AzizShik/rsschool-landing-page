@@ -65,8 +65,3 @@ div[id] {
 .catalog {
   padding-block: 4rem;
 }
-
-.footer {
-  padding-block: 1.5rem;
-  border-top: 1px solid var(--color-border-primary);
-}
