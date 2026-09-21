@@ -24,6 +24,19 @@ function cupIcon(size) {
       </svg>`
 }
 
+// Slider chevron arrows (exact Figma "arrow-left"/"arrow-right" vectors):
+// a horizontal bar plus a chevron, ~12.5×12 in a 24×24 canvas. The stroke is
+// currentColor so arrows follow the theme and invert on hover.
+function arrowIcon(direction) {
+  const path = direction === 'left'
+    ? 'M18.5 12H6M12 18L6 12L12 6'
+    : 'M6 12H18.5M12.5 18L18.5 12L12.5 6'
+  return `
+      <svg class="arrow-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" aria-hidden="true">
+        <path d="${path}" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>`
+}
+
 // Per-page placeholder values for the shared header partial.
 const PAGES = [
   {
@@ -81,7 +94,7 @@ function sharedHeader() {
           // Keep the partial readable, don't ship its documentation in the page.
           .replace(/<!--[\s\S]*?-->/g, '')
 
-        return html.replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial).replaceAll('{{CUP_ICON}}', cupIcon(20))
+        return html.replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial).replaceAll('{{CUP_ICON}}', cupIcon(20)).replaceAll('{{ARROW_LEFT}}', arrowIcon('left')).replaceAll('{{ARROW_RIGHT}}', arrowIcon('right'))
       },
     },
   }

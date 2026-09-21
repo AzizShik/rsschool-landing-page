@@ -73,11 +73,149 @@
 /* ---------- Mobile (≤380px) ---------- */
 
 @media (max-width: 640px) {
-	.hero {
-	}
-
 	.hero__card {
 		min-height: 552px;
 		padding-inline: var(--space-md); /* 16px */
+	}
+}
+
+/* ============================================================
+   Home page — Favorite coffee slider (Figma node 216:1520)
+   ------------------------------------------------------------
+   Structure:
+     .favorite (container) > .favorite__title + .slider + .slider__controls
+     .slider > .slider__arrow --prev | .slider__viewport
+            > .slider__track > .slide > .slide__card (image + body)
+   One card (480 wide on desktop) is shown centered; the other two slides sit
+   off-viewport inside the clipped track (carousel motion is Part 2).
+
+   Figma sizes:
+     Desktop: card 480, image 480×480 square, arrows 60×60, controls 40×4
+     Tablet  : arrows + 480 card kept; viewport narrows with the container
+     Mobile  : arrows hidden, card fills the container (348 at 380px)
+   ============================================================ */
+
+.favorite {
+	margin-bottom: var(--space-2xl); /* 100px gap to the next section */
+}
+
+.favorite__title {
+	margin-bottom: var(--space-xl); /* 40px to the slider */
+	text-align: center;
+	color: var(--color-text-primary);
+	/* Figma anchors: 60/75 at ≥768 ([T] keeps 60), 32/40 at ≤380 ([M]).
+     Between the two specified widths the heading scales fluidly. */
+	font-size: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 60px);
+	line-height: clamp(40px, calc(40px + (100vw - 380px) * (35 / 388)), 75px);
+}
+
+/* ---------- Slider row ---------- */
+
+.slider {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xl); /* 40px between arrows and viewport */
+}
+
+.slider__arrow {
+	flex: 0 0 60px;
+	width: 60px;
+	height: 60px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary); /* arrow icon */
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+/* Figma button-icon-dark hover: solid bg + cream arrow */
+.slider__arrow:hover {
+	background-color: var(--color-border-inverse);
+	color: var(--color-text-inverse);
+}
+
+.slider__viewport {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.slider__track {
+	display: flex;
+}
+
+.slide {
+	flex: 0 0 100%;
+	min-width: 0;
+	display: flex;
+	justify-content: center;
+}
+
+.slide__card {
+	display: flex;
+	flex-direction: column;
+	gap: 20px; /* Figma: image → text gap */
+	width: min(480px, 100%);
+}
+
+.slide__img {
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.slide__body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-md); /* 16px */
+	text-align: center;
+}
+
+.slide__name,
+.slide__price {
+	font-size: var(--font-size-h3); /* 24px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-h3);
+	color: var(--color-text-primary);
+}
+
+.slide__description {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-primary);
+}
+
+/* ---------- Slider controls ---------- */
+
+.slider__controls {
+	display: flex;
+	justify-content: center;
+	gap: var(--space-sm); /* 12px */
+	margin-top: var(--space-xl); /* 40px */
+}
+
+.slider__control {
+	width: 40px;
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-border-primary);
+}
+
+.slider__control.is-active {
+	background-color: var(--color-border-inverse);
+}
+
+/* ---------- Mobile — arrows hidden, card fills the container ---------- */
+
+@media (max-width: 640px) {
+	.slider__arrow {
+		display: none;
 	}
 }

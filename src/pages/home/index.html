@@ -29,6 +29,70 @@
         </div>
       </div>
     </section>
+
+    <section class="favorite container" id="favorite-coffee">
+      <h2 class="favorite__title">Choose your favorite coffee</h2>
+
+      <div class="slider">
+        <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
+          {{ARROW_LEFT}}
+        </button>
+
+        <div class="slider__viewport">
+          <ul class="slider__track">
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-1.png" alt="S'mores Frappuccino" />
+                <div class="slide__body">
+                  <h3 class="slide__name">S'mores Frappuccino</h3>
+                  <p class="slide__description">
+                    This new drink takes an espresso and mixes it with brown sugar
+                    and cinnamon before being topped with oat milk.
+                  </p>
+                  <p class="slide__price">$5.50</p>
+                </div>
+              </div>
+            </li>
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-2.png" alt="Caramel Macchiato" />
+                <div class="slide__body">
+                  <h3 class="slide__name">Caramel Macchiato</h3>
+                  <p class="slide__description">
+                    Fragrant and unique classic espresso with rich caramel-peanut
+                    syrup, with cream under whipped thick foam.
+                  </p>
+                  <p class="slide__price">$5.00</p>
+                </div>
+              </div>
+            </li>
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-3.png" alt="Ice coffee" />
+                <div class="slide__body">
+                  <h3 class="slide__name">Ice coffee</h3>
+                  <p class="slide__description">
+                    A popular summer drink that tones and invigorates. Prepared
+                    from coffee, milk and ice.
+                  </p>
+                  <p class="slide__price">$4.50</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <button class="slider__arrow slider__arrow--next" type="button" aria-label="Next slide">
+          {{ARROW_RIGHT}}
+        </button>
+      </div>
+
+      <div class="slider__controls">
+        <span class="slider__control is-active" aria-hidden="true"></span>
+        <span class="slider__control" aria-hidden="true"></span>
+        <span class="slider__control" aria-hidden="true"></span>
+      </div>
+    </section>
   </main>
 
   <footer class="footer container">

@@ -87,7 +87,7 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 640px) {
   :root {
     --container-padding: 16px;
   }
