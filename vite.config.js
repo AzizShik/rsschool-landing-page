@@ -192,6 +192,9 @@ function sharedHeader() {
 export default defineConfig({
   root: 'src',
   plugins: [sharedHeader()],
+  // Relative asset base so the built site works when hosted under a
+  // sub-path such as GitHub Pages (https://user.github.io/repo/).
+  base: './',
   build: {
     outDir: '../dist',
     emptyOutDir: true,
@@ -201,6 +204,8 @@ export default defineConfig({
     cssMinify: false,
     rollupOptions: {
       input: {
+        // src/index.html stays the dev-server root redirect; for the build
+        // the dist-root redirect is copied from src/public/index.html.
         home: fileURLToPath(new URL('./src/pages/home/index.html', import.meta.url)),
         menu: fileURLToPath(new URL('./src/pages/menu/index.html', import.meta.url))
       }
