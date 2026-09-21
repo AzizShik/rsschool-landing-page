@@ -12,7 +12,7 @@
   --font-weight-bold: 700;
 
   --font-size-h1: 72px;
-  --font-size-h2: 60px;
+  --font-size-h2: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 60px);
   --font-size-h3: 24px;
   --font-size-body: 16px;
   --font-size-button: 16px;
@@ -21,7 +21,7 @@
   --font-size-burger-link: 32px;
 
   --line-height-h1: 75.6px; /* 1.05 */
-  --line-height-h2: 75px;   /* 1.25 */
+  --line-height-h2: clamp(40px, calc(40px + (100vw - 380px) * (35 / 388)), 75px);
   --line-height-h3: 30px;   /* 1.25 */
   --line-height-body: 24px; /* 1.5  */
   --line-height-button: 24px;
@@ -46,6 +46,7 @@
   /* ---------- Radius ---------- */
   --radius-pill: 100px;      /* buttons, theme switch, product cards */
   --radius-large: 40px;      /* hero / section cards */
+  --radius-medium: 20px;     /* about / menu image boxes */
 
   /* ---------- Spacing ---------- */
   --space-2xs: 4px;
@@ -82,8 +83,8 @@
   :root {
     --font-size-h1: 42px;
     --line-height-h1: 48.3px;
-    --font-size-h2: 32px;
-    --line-height-h2: 40px;
+    /* h2 stays fluid via the clamp in :root (Figma keeps desktop sizes
+       on tablet, shrinks only on mobile) */
   }
 }
 

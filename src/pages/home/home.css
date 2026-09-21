@@ -103,10 +103,8 @@
 	margin-bottom: var(--space-xl); /* 40px to the slider */
 	text-align: center;
 	color: var(--color-text-primary);
-	/* Figma anchors: 60/75 at ≥768 ([T] keeps 60), 32/40 at ≤380 ([M]).
-     Between the two specified widths the heading scales fluidly. */
-	font-size: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 60px);
-	line-height: clamp(40px, calc(40px + (100vw - 380px) * (35 / 388)), 75px);
+	/* Fluid size flows from the global h2 tokens
+	   (clamp 60/75 ⇄ 32/40 between 768px and 380px, Figma). */
 }
 
 /* ---------- Slider row ---------- */
@@ -217,5 +215,68 @@
 @media (max-width: 640px) {
 	.slider__arrow {
 		display: none;
+	}
+}
+
+/* ============================================================
+   Home page — About (Figma node 216:1377)
+   ------------------------------------------------------------
+   Structure:
+     .about (container) > .about__title + .about__grid (2 columns)
+   Heading (global h2 — fluid 60/75 ⇄ 32/40): the segment
+   "the perfect and cozy place" is accent-colored + italic (Figma).
+   Images: staggered 2-column collage — col1 = tall/short,
+   col2 = short/tall. Tall box 590px, short box 430px, radius 20.
+   On ≤768 the columns stack full-width; heights stay fixed per Figma.
+   ============================================================ */
+
+.about {
+	margin-bottom: var(--space-2xl); /* 100px gap to the next section */
+}
+
+.about__title {
+	margin-bottom: var(--space-xl); /* 40px to the images */
+	color: var(--color-text-primary);
+	text-align: left;
+	/* Same fluid curve as the global h2 token, capped at 59px instead of 60px:
+	   at 1440 the extra px would push "catch up…" to a 4th line (Figma keeps
+	   3 lines at width 1360; the 15px scrollbar makes the live box 1345). */
+	font-size: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 59px);
+}
+
+.about__title .text-accent {
+	font-style: italic; /* Figma: the accent segment is italic */
+}
+
+.about__grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--space-xl); /* 40px between columns and rows */
+}
+
+.about__column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
+}
+
+.about__img {
+	width: 100%;
+	object-fit: cover;
+	border-radius: var(--radius-medium); /* 20px */
+	background-color: var(--color-surface); /* shown while the image loads */
+}
+
+.about__img--tall {
+	height: 590px;
+}
+
+.about__img--short {
+	height: 430px;
+}
+
+@media (max-width: 768px) {
+	.about__grid {
+		grid-template-columns: 1fr; /* columns stack full-width */
 	}
 }
