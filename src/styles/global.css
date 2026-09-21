@@ -39,9 +39,15 @@ h3 {
 
 /* ---------- Layout container ---------- */
 .container {
-  max-width: var(--container-max-width);
+  max-width: calc(var(--container-max-width) + var(--container-padding) * 2);
   margin-inline: auto;
   padding-inline: var(--container-padding);
+}
+
+/* Sections with anchor targets keep clear of the sticky 60px header */
+section[id],
+div[id] {
+  scroll-margin-top: 76px;
 }
 
 /* ---------- Accessibility ---------- */
@@ -56,62 +62,6 @@ h3 {
 }
 
 /* ---------- Base page skeleton (placeholder until real sections land) ---------- */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 1.5rem;
-}
-
-.header__logo {
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-semibold);
-}
-
-.header__menu {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-
-.header__link {
-  font-weight: var(--font-weight-regular);
-  transition: color var(--transition);
-}
-
-.header__link:hover,
-.header__link.is-active {
-  color: var(--color-text-accent);
-}
-
-.header__toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: var(--color-text-primary);
-  transition: color var(--transition), background-color var(--transition);
-}
-
-.header__toggle:hover {
-  background-color: var(--color-border-primary);
-}
-
-.icon--moon {
-  display: none;
-}
-
-[data-theme='dark'] .icon--sun {
-  display: none;
-}
-
-[data-theme='dark'] .icon--moon {
-  display: block;
-}
-
 .hero,
 .catalog {
   padding-block: 4rem;

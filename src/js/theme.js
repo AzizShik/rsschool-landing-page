@@ -13,19 +13,21 @@ function getPreferredTheme() {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-function getCurrentTheme() {
+export function getCurrentTheme() {
   return document.documentElement.getAttribute(THEME_ATTRIBUTE) === 'dark' ? 'dark' : 'light'
 }
 
-function applyToggleState(toggle, theme) {
+function syncButton(button, theme) {
   const isDark = theme === 'dark'
-  toggle.setAttribute('aria-pressed', String(isDark))
+  const isActive = button.dataset.themeButton === (isDark ? 'dark' : 'light')
+  button.classList.toggle('theme-switch__button--active', isActive)
+  button.setAttribute('aria-pressed', String(isActive))
 }
 
-function syncToggles() {
+function syncButtons() {
   const theme = getCurrentTheme()
-  document.querySelectorAll('[data-theme-toggle]').forEach((toggle) => {
-    applyToggleState(toggle, theme)
+  document.querySelectorAll('[data-theme-button]').forEach((button) => {
+    syncButton(button, theme)
   })
 }
 
@@ -36,17 +38,19 @@ export function setTheme(theme) {
   } catch {
     // localStorage may be unavailable (e.g. private mode) — theme still applies for this session
   }
-  syncToggles()
+  syncButtons()
 }
 
-function initTheme() {
+/**
+ * Applies the stored/preferred theme and wires up the theme switch buttons.
+ * Call after the shared Header has been rendered, so the switch exists in the DOM.
+ */
+export function initTheme() {
   setTheme(getStoredTheme() ?? getPreferredTheme())
 
   document.addEventListener('click', (event) => {
-    const toggle = event.target.closest('[data-theme-toggle]')
-    if (!toggle) return
-    setTheme(getCurrentTheme() === 'dark' ? 'light' : 'dark')
+    const button = event.target.closest('[data-theme-button]')
+    if (!button) return
+    setTheme(button.dataset.themeButton === 'dark' ? 'dark' : 'light')
   })
 }
-
-initTheme()

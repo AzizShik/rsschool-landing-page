@@ -17,6 +17,7 @@
   --font-size-body: 16px;
   --font-size-button: 16px;
   --font-size-caption: 10px;
+  --font-size-nav: 16px;
   --font-size-burger-link: 32px;
 
   --line-height-h1: 75.6px; /* 1.05 */
@@ -42,6 +43,18 @@
   --container-max-width: 1360px; /* 1440 − 2×40 page padding */
   --container-padding: 40px;
 
+  /* ---------- Radius ---------- */
+  --radius-pill: 100px;      /* buttons, theme switch, product cards */
+  --radius-large: 40px;      /* hero / section cards */
+
+  /* ---------- Spacing ---------- */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
   /* ---------- Motion ---------- */
   --transition-duration: 0.3s;
   --transition-easing: ease;
@@ -62,12 +75,19 @@
 }
 
 /* ---------- Responsive token overrides ---------- */
+/* Tablet (768px) keeps the 40px page padding (Figma [T]); mobile (380px)
+   narrows it to 16px. */
 @media (max-width: 768px) {
   :root {
-    --container-padding: 16px;
     --font-size-h1: 42px;
     --line-height-h1: 48.3px;
     --font-size-h2: 32px;
     --line-height-h2: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --container-padding: 16px;
   }
 }

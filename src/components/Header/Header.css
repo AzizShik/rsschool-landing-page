@@ -1,0 +1,229 @@
+/* ============================================================
+   Header (Coffee House) — shared across pages
+   Desktop: logo | nav (4 links) | theme switch + Menu link
+   Tablet (≤768px): nav hidden, burger button shown
+   Mobile (≤380px): tighter actions + page padding
+   ============================================================ */
+
+.header {
+	position: absolute;
+	width: 100%;
+	top: 20px;
+	z-index: 50;
+	height: 60px;
+	background-color: var(--color-background);
+}
+
+.header__container {
+	height: 100%;
+}
+
+.header__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 60px;
+}
+
+.header__logo {
+	display: block;
+	flex: 0 0 auto;
+}
+
+.header__logo img {
+	display: block;
+}
+
+/* ---------- Navigation ---------- */
+
+.header__nav {
+	max-width: 500px;
+	width: 100%;
+}
+
+.header__nav-list {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	gap: 14px;
+	/* gap: var(--space-xl);  */
+	/* 40px between items (Figma) */
+}
+
+.header__nav-item {
+	line-height: 0;
+}
+
+.nav-link {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs); /* 8px between label and cup icon (Figma) */
+	padding-block: 2px;
+	font-size: var(--font-size-nav);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-button);
+	color: var(--color-text-primary);
+	transition: color var(--transition);
+}
+
+.nav-link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 2px;
+	background-color: var(--color-text-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.is-active {
+	color: var(--color-text-accent);
+}
+
+.nav-link:hover::after,
+.nav-link.is-active::after {
+	transform: scaleX(1);
+}
+
+.cup-icon {
+	/* flex: 0 0 auto; */
+	color: inherit;
+}
+
+/* Section links show no icon in the default state (Figma: coffee-cup visible=False).
+   The icon fades in on hover/focus; the Menu link always carries it. */
+.nav-link .cup-icon {
+	opacity: 0;
+	transition: opacity var(--transition);
+}
+
+.nav-link:hover .cup-icon,
+.nav-link:focus-visible .cup-icon,
+.nav-link.is-active .cup-icon {
+	opacity: 1;
+}
+
+.nav-link--menu .cup-icon {
+	display: block;
+	opacity: 1;
+}
+
+/* ---------- Actions (theme switch + Menu link + burger) ---------- */
+
+.header__actions {
+	display: flex;
+	align-items: center;
+	gap: var(--space-lg); /* 24px (Figma) */
+}
+
+.header__nav-link--menu {
+	white-space: nowrap;
+}
+
+/* Burger button — desktop hidden, shown on tablet/mobile */
+.header__burger {
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: 50%;
+	color: var(--color-text-primary);
+	transition:
+		border-color var(--transition),
+		background-color var(--transition),
+		color var(--transition);
+}
+
+.header__burger:hover {
+	background-color: var(--color-border-primary);
+}
+
+.header__burger-icon {
+	display: block;
+}
+
+/* ---------- Burger menu overlay (visual state; interaction is Part 2) ---------- */
+
+.burger-menu[hidden] {
+	display: none;
+}
+
+.burger-menu {
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: var(--space-2xs);
+	padding: 60px 40px;
+	background-color: var(--color-background);
+}
+
+.burger-menu__nav {
+	display: flex;
+	flex-direction: column;
+	gap: 60px;
+}
+
+.burger-menu__link {
+	font-size: var(--font-size-burger-link);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-burger-link);
+	color: var(--color-text-primary);
+}
+
+.burger-menu__menu-link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-md);
+	font-size: var(--font-size-burger-link);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-burger-link);
+	color: var(--color-text-primary);
+}
+
+@media (max-width: 991px) {
+	.header__nav {
+		display: none;
+	}
+
+	.header__burger {
+		display: inline-flex;
+	}
+
+  .nav-link--menu {
+    display: none;
+  }
+}
+
+/* ---------- Tablet (≤768px) ---------- */
+
+/* @media (max-width: 768px) {
+	.header__nav {
+		display: none;
+	}
+
+	.header__burger {
+		display: inline-flex;
+	}
+} */
+
+/* ---------- Mobile (≤380px) ---------- */
+
+@media (max-width: 380px) {
+	.header__actions {
+		gap: var(--space-sm); /* 12px (Figma [M]) */
+	}
+
+	.burger-menu {
+		padding-inline: var(--container-padding);
+	}
+}
