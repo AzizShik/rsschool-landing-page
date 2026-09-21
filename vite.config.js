@@ -93,6 +93,17 @@ function arrowIcon(direction) {
       </svg>`
 }
 
+// Menu "refresh" (load-more) button icon (24×24). Exact vector paths provided
+// by the user (Figma-exported). Strokes use currentColor so the icon follows
+// the button color in both themes.
+function refreshIcon() {
+  return `
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor">
+        <path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>`
+}
+
 // Per-page placeholder values for the shared header partial.
 const PAGES = [
   {
@@ -170,6 +181,7 @@ function sharedHeader() {
           .replaceAll('{{CUP_ICON}}', cupIcon(20))
           .replaceAll('{{ARROW_LEFT}}', arrowIcon('left'))
           .replaceAll('{{ARROW_RIGHT}}', arrowIcon('right'))
+          .replaceAll('{{REFRESH_ICON}}', refreshIcon())
           .replaceAll('{{APPLE_ICON}}', storeIcon('apple'))
           .replaceAll('{{PLAY_ICON}}', storeIcon('play'))
       },

@@ -60,8 +60,3 @@ div[id] {
   background-color: var(--color-text-accent);
   color: var(--color-text-inverse);
 }
-
-/* ---------- Base page skeleton (placeholder until real sections land) ---------- */
-.catalog {
-  padding-block: 4rem;
-}

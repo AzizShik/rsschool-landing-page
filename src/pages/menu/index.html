@@ -1,21 +1,130 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coffee House — Menu</title>
-    <script type="module" src="../../js/main.js"></script>
-  </head>
-  <body>
-    <header id="site-header"></header>
 
-    <main>
-      <section class="catalog container">
-        <h1 class="catalog__title">Menu page</h1>
-        <p class="catalog__subtitle">Coffee House — placeholder content.</p>
-      </section>
-    </main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee House — Menu</title>
+  <link rel="stylesheet" href="./menu.css" />
+  <script type="module" src="../../js/main.js"></script>
+</head>
 
-    <footer id="site-footer"></footer>
-  </body>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="menu container" aria-label="Menu">
+      <div class="menu__offer">
+        <h1 class="menu__title">Behind each of our cups hides an amazing surprise</h1>
+
+        <div class="menu__tabs" role="tablist" aria-label="Product categories">
+          <button class="menu__tab menu__tab--active" type="button" role="tab" aria-selected="true">
+            <span class="menu__tab-icon" aria-hidden="true">☕</span>
+            Coffee
+          </button>
+          <button class="menu__tab" type="button" role="tab" aria-selected="false">
+            <span class="menu__tab-icon" aria-hidden="true">🫖</span>
+            Tea
+          </button>
+          <button class="menu__tab" type="button" role="tab" aria-selected="false">
+            <span class="menu__tab-icon" aria-hidden="true">🍰</span>
+            Dessert
+          </button>
+        </div>
+      </div>
+
+      <ul class="menu__grid">
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-1.png" alt="Irish coffee" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Irish coffee</h3>
+            <p class="product-card__desc">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+            <p class="product-card__price">$7.00</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-2.png" alt="Kahlua coffee" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Kahlua coffee</h3>
+            <p class="product-card__desc">Classic coffee with milk and Kahlua liqueur under a cap of frothed milk</p>
+            <p class="product-card__price">$7.00</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-3.png" alt="Honey raf" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Honey raf</h3>
+            <p class="product-card__desc">Espresso with frothed milk, cream and aromatic honey</p>
+            <p class="product-card__price">$5.50</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-4.png" alt="Ice cappuccino" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Ice cappuccino</h3>
+            <p class="product-card__desc">Cappuccino with soft thick foam in summer version with ice</p>
+            <p class="product-card__price">$5.00</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-5.png" alt="Espresso" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Espresso</h3>
+            <p class="product-card__desc">Classic black coffee</p>
+            <p class="product-card__price">$4.50</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-6.png" alt="Latte" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Latte</h3>
+            <p class="product-card__desc">Espresso coffee with the addition of steamed milk and dense milk foam</p>
+            <p class="product-card__price">$5.50</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-7.png" alt="Latte macchiato" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Latte macchiato</h3>
+            <p class="product-card__desc">Espresso with frothed milk and chocolate</p>
+            <p class="product-card__price">$5.50</p>
+          </div>
+        </li>
+        <li class="product-card">
+          <div class="product-card__media">
+            <img class="product-card__img" src="../../assets/img/coffee-8.png" alt="Coffee with cognac" width="310" height="310" />
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Coffee with cognac</h3>
+            <p class="product-card__desc">Fragrant black coffee with cognac and whipped cream</p>
+            <p class="product-card__price">$6.50</p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="menu__more">
+        <button class="menu__refresh" type="button" aria-label="Show more products">
+          {{REFRESH_ICON}}
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+
 </html>
