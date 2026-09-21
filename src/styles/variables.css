@@ -54,6 +54,7 @@
   --space-md: 16px;
   --space-lg: 24px;
   --space-xl: 40px;
+  --space-2xl: 100px; /* section-to-section gap (Figma) */
 
   /* ---------- Motion ---------- */
   --transition-duration: 0.3s;

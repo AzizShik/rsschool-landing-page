@@ -1,0 +1,83 @@
+/* ============================================================
+   Home page — Hero section (Figma node 216:1370)
+   ------------------------------------------------------------
+   Structure:
+     .hero (page container) > .hero__card (image backdrop)
+       > .hero__offer (title / body / CTA, gap 40)
+
+   Figma sizes:
+     Desktop (1440): card 1360×644, radius 40, padding-inline 100
+     Tablet  (768) : card 688×644,  padding-inline 60, title stays 72px
+     Mobile  (380) : card 348×552,  padding-inline 16, title 42px
+   ============================================================ */
+
+.hero {
+	margin-top: var(--space-2xl); /* 20px from the fixed header (Figma gap) */
+	margin-bottom: var(--space-2xl); /* 100px section gap to the next section */
+}
+
+.hero__card {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 644px;
+	padding-inline: 100px;
+	border-radius: var(--radius-large);
+	background-color: var(--color-surface);
+	background-image: url('../../assets/img/hero.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.hero__offer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl); /* 40px between title / body / CTA */
+	max-width: 530px;
+	min-width: 0;
+}
+
+.hero__title,
+.hero__body {
+	min-width: 0;
+}
+
+.hero__title {
+	/* Figma anchors: 72px at ≥768 ([T]/desktop keeps 72), 42px at ≤380 ([M]).
+     Between the two specified widths the size scales fluidly so a narrow card
+     never shows an oversized, heavily wrapped heading. */
+	font-size: clamp(42px, calc(42px + (100vw - 380px) * (30 / 388)), 72px);
+	line-height: 105%;
+	color: var(--color-text-inverse);
+}
+
+.hero__body {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-inverse);
+}
+
+/* ---------- Tablet (≤768px) — nav hides, burger shows; hero text stays 72px ---------- */
+
+@media (max-width: 768px) {
+	.hero__card {
+		padding-inline: 60px;
+	}
+
+	.hero .hero__button .cup-icon {
+		opacity: 1;
+	}
+}
+
+/* ---------- Mobile (≤380px) ---------- */
+
+@media (max-width: 640px) {
+	.hero {
+	}
+
+	.hero__card {
+		min-height: 552px;
+		padding-inline: var(--space-md); /* 16px */
+	}
+}

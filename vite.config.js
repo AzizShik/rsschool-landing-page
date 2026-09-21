@@ -81,7 +81,7 @@ function sharedHeader() {
           // Keep the partial readable, don't ship its documentation in the page.
           .replace(/<!--[\s\S]*?-->/g, '')
 
-        return html.replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial)
+        return html.replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial).replaceAll('{{CUP_ICON}}', cupIcon(20))
       },
     },
   }

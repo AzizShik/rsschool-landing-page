@@ -11,5 +11,6 @@ import '../styles/global.css'
 import '../styles/utilities.css'
 import '../components/Header/Header.css'
 import '../components/ThemeToggle/ThemeToggle.css'
+import '../components/Button/Button.css'
 
 initTheme()

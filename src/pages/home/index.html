@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coffee House — Home</title>
+  <link rel="stylesheet" href="./home.css" />
   <script type="module" src="../../js/main.js"></script>
 </head>
 
@@ -12,9 +13,21 @@
   <header id="site-header"></header>
 
   <main>
-    <section class="hero container">
-      <h1 class="hero__title">Home page</h1>
-      <p class="hero__subtitle">Coffee House — placeholder content.</p>
+    <section class="hero container" aria-label="Welcome">
+      <div class="hero__card">
+        <div class="hero__offer">
+          <h1 class="hero__title"><span class="text-highlight">Enjoy</span> premium coffee at our charming cafe</h1>
+          <p class="hero__body">
+            With its inviting atmosphere and delicious coffee options, the Coffee
+            House Resource is a popular destination for coffee lovers and those
+            seeking a warm and inviting space to enjoy their favorite beverage.
+          </p>
+          <a class="button button--primary hero__button" href="../menu/index.html">
+            <span class="hero__button-text">Menu</span>
+            {{CUP_ICON}}
+          </a>
+        </div>
+      </div>
     </section>
   </main>
 
