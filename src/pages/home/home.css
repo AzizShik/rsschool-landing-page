@@ -279,4 +279,147 @@
 	.about__grid {
 		grid-template-columns: 1fr; /* columns stack full-width */
 	}
+
+  .about__img--short {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Home page — Mobile app (Figma node 216:1387)
+   ------------------------------------------------------------
+   Structure:
+     .mobile-app (container) > .mobile-app__inner
+       > .mobile-app__offer (title / text / store buttons)
+       + .mobile-app__screens (phone screens, square image)
+
+   Desktop: offer (630) left, screens (630) right, 100px gap
+   Tablet  (≤768): blocks stack, gap 100, screens centered
+   Mobile  (≤380): gap 40; store buttons wrap to a column
+   ============================================================ */
+
+.mobile-app {
+	margin-bottom: var(--space-2xl); /* 100px to the footer */
+}
+
+.mobile-app__inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mobile-app__offer {
+	flex: 0 0 630px;
+	width: 630px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-xl); /* 40px title / text / buttons (Figma) */
+}
+
+.mobile-app__title {
+	color: var(--color-text-primary);
+}
+
+.mobile-app__text {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-primary);
+}
+
+/* App Store / Google Play badge buttons (pill, 1px border, 200×64) */
+
+.mobile-app__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-lg); /* 20px between badges (Figma) */
+}
+
+.store-button {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs); /* 8px icon→label (Figma) */
+	width: 200px;
+	height: 64px;
+	padding-inline: 24px;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary);
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+.store-button:hover {
+	background-color: var(--color-border-inverse);
+	color: var(--color-text-inverse);
+}
+
+.store-button__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 36px;
+	width: 36px;
+	height: 36px;
+}
+
+.store-button__label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.store-button__caption {
+	font-size: var(--font-size-caption); /* 10px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-caption); /* 14px */
+	white-space: nowrap;
+}
+
+.store-button__name {
+	font-size: var(--font-size-button); /* 16px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-button); /* 24px */
+	white-space: nowrap;
+}
+
+/* Phone screens — square 630×630 (desktop), 348 at mobile.
+   max-width caps the intrinsic 630px width so the image always shrinks. */
+
+.mobile-app__screens {
+	flex: 0 0 auto;
+	width: min(630px, 100%);
+	max-width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	background-color: var(--color-surface); /* shown while the image loads */
+}
+
+/* ---------- Narrow screens (≤1360px) — blocks stack, screens centered.
+   The desktop row (offer 630 + gap 100 + screens 630 = 1360px content) only
+   fits at a 1440px viewport, so below it the section collapses to the column
+   layout the Figma tablet frame (768px) defines: offer full-width on top,
+   screens centered under it, 100px stack gap. ---------- */
+
+@media (max-width: 1360px) {
+	.mobile-app__inner {
+		flex-direction: column;
+		gap: var(--space-2xl); /* 100px */
+	}
+
+	.mobile-app__offer {
+		flex-basis: auto;
+		width: 100%;
+	}
+}
+
+/* ---------- Mobile (≤380px) — 40px stack gap ---------- */
+
+@media (max-width: 640px) {
+	.mobile-app__inner {
+		gap: var(--space-xl); /* 40px */
+	}
 }
