@@ -88,7 +88,9 @@
 	width: 30px;
 	height: 30px;
 	border-radius: var(--radius-pill);
-	background-color: var(--color-border-primary); /* inactive circle #c1b6ad / #665f55 */
+	background-color: var(
+		--color-border-primary
+	); /* inactive circle #c1b6ad / #665f55 */
 	color: var(--color-text-primary); /* emoji glyph */
 	font-size: var(--font-size-body);
 	line-height: 1;
@@ -133,10 +135,6 @@
 
 .product-card:hover .product-card__img {
 	transform: scale(1);
-}
-
-[data-theme='dark'] .product-card {
-	background-color: var(--color-surface);
 }
 
 .product-card__media {
