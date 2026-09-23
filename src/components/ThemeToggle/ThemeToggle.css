@@ -1,0 +1,86 @@
+/* ============================================================
+   ThemeToggle — segmented pill switch (Figma "Theme switch")
+   Desktop: 88×44, buttons 36×36
+   Tablet/mobile (≤768px): 104×52, buttons 40×40
+   ============================================================ */
+
+.theme-switch {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-xs);
+	width: 88px;
+	height: 44px;
+	padding: var(--space-2xs);
+	border-radius: var(--radius-pill);
+	border: 1px solid var(--color-border-primary);
+}
+
+.theme-switch__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	color: var(--color-text-primary);
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+/* The active side always gets the accent fill (#B0907A) with the cream
+   inverse icon — in both themes (Figma "Theme switch" light & dark frames). */
+.theme-switch__button--light.theme-switch__button--active,
+.theme-switch__button--dark.theme-switch__button--active {
+	background-color: var(--color-text-accent);
+	color: var(--color-text-inverse);
+}
+
+/* Hover fills the INACTIVE side with the theme's hover slot (Figma hover
+   frames: light #665F55, dark #403F3D). The active side keeps its accent. */
+.theme-switch__button:not(.theme-switch__button--active):hover {
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
+}
+
+.theme-switch__button:focus-visible {
+	outline-offset: 0;
+}
+
+.theme-switch__icon {
+	display: block;
+}
+
+.theme-switch__icon--sun {
+	width: 22px;
+	height: 22px;
+}
+
+.theme-switch__icon--moon {
+	width: 18px;
+	height: 18px;
+}
+
+@media (max-width: 768px) {
+	.theme-switch {
+		width: 104px;
+		height: 52px;
+		padding: var(--space-2xs);
+	}
+
+	.theme-switch__button {
+		width: 40px;
+		height: 40px;
+	}
+
+	.theme-switch__icon--sun {
+		width: 24px;
+		height: 24px;
+	}
+
+	.theme-switch__icon--moon {
+		width: 20px;
+		height: 20px;
+	}
+}

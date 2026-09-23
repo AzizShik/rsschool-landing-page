@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coffee House — Home</title>
+  <link rel="icon" type="image/svg+xml" href="../../assets/img/logo.svg" />
+  <link rel="stylesheet" href="./home.css" />
+  <script type="module" src="../../js/main.js"></script>
+</head>
+
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="hero container" aria-label="Welcome">
+      <div class="hero__card">
+        <div class="hero__offer">
+          <h1 class="hero__title"><span class="text-accent">Enjoy</span> premium coffee at our charming cafe</h1>
+          <p class="hero__body">
+            With its inviting atmosphere and delicious coffee options, the Coffee
+            House Resource is a popular destination for coffee lovers and those
+            seeking a warm and inviting space to enjoy their favorite beverage.
+          </p>
+          <a class="button button--primary hero__button" href="../menu/index.html">
+            <span class="hero__button-text">Menu</span>
+            {{CUP_ICON}}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="favorite container" id="favorite-coffee">
+      <h2 class="favorite__title">Choose your <span class="text-accent">favorite</span> coffee</h2>
+
+      <div class="slider">
+        <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
+          {{ARROW_LEFT}}
+        </button>
+
+        <div class="slider__viewport">
+          <ul class="slider__track">
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-1.png" alt="S'mores Frappuccino" />
+                <div class="slide__body">
+                  <h3 class="slide__name">S'mores Frappuccino</h3>
+                  <p class="slide__description">
+                    This new drink takes an espresso and mixes it with brown sugar
+                    and cinnamon before being topped with oat milk.
+                  </p>
+                  <p class="slide__price">$5.50</p>
+                </div>
+              </div>
+            </li>
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-2.png" alt="Caramel Macchiato" />
+                <div class="slide__body">
+                  <h3 class="slide__name">Caramel Macchiato</h3>
+                  <p class="slide__description">
+                    Fragrant and unique classic espresso with rich caramel-peanut
+                    syrup, with cream under whipped thick foam.
+                  </p>
+                  <p class="slide__price">$5.00</p>
+                </div>
+              </div>
+            </li>
+            <li class="slide">
+              <div class="slide__card">
+                <img class="slide__img" src="../../assets/img/slider-3.png" alt="Ice coffee" />
+                <div class="slide__body">
+                  <h3 class="slide__name">Ice coffee</h3>
+                  <p class="slide__description">
+                    A popular summer drink that tones and invigorates. Prepared
+                    from coffee, milk and ice.
+                  </p>
+                  <p class="slide__price">$4.50</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <button class="slider__arrow slider__arrow--next" type="button" aria-label="Next slide">
+          {{ARROW_RIGHT}}
+        </button>
+      </div>
+
+      <div class="slider__controls">
+        <span class="slider__control is-active" aria-hidden="true"></span>
+        <span class="slider__control" aria-hidden="true"></span>
+        <span class="slider__control" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="about container" id="about">
+      <h2 class="about__title">
+        Resource is <span class="text-accent">the perfect and cozy place</span>
+        where you can enjoy a variety of hot beverages, relax, catch up with
+        friends, or get some work done.
+      </h2>
+
+      <div class="about__grid">
+        <div class="about__column">
+          <div class="about__figure about__figure--tall">
+            <img class="about__img" src="../../assets/img/about-1.png"
+              alt="Cozy seating corner inside the Coffee House Resource cafe" />
+          </div>
+          <div class="about__figure about__figure--short">
+            <img class="about__img" src="../../assets/img/about-2.png"
+              alt="A cup of cappuccino on a wooden cafe table" />
+          </div>
+        </div>
+        <div class="about__column">
+          <div class="about__figure about__figure--short">
+            <img class="about__img" src="../../assets/img/about-3.png"
+              alt="Warm cafe interior with tables and soft evening light" />
+          </div>
+          <div class="about__figure about__figure--tall">
+            <img class="about__img" src="../../assets/img/about-4.png"
+              alt="Baristas making coffee drinks behind the cafe counter" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mobile-app container" id="mobile-app">
+      <div class="mobile-app__inner">
+        <div class="mobile-app__offer">
+          <h2 class="mobile-app__title"><span class="text-accent">Download</span> our app to&nbsp;start ordering</h2>
+          <p class="mobile-app__text">
+            Download the Resource app today and experience the comfort of
+            ordering your favorite coffee from wherever you are.
+          </p>
+          <div class="mobile-app__buttons">
+            <a class="store-button" href="https://www.apple.com/app-store/" target="_blank" rel="noopener noreferrer">
+              <span class="store-button__icon">{{APPLE_ICON}}</span>
+              <span class="store-button__label">
+                <span class="store-button__caption">Available on the</span>
+                <span class="store-button__name">App Store</span>
+              </span>
+            </a>
+            <a class="store-button" href="https://play.google.com/store/apps/" target="_blank"
+              rel="noopener noreferrer">
+              <span class="store-button__icon">{{PLAY_ICON}}</span>
+              <span class="store-button__label">
+                <span class="store-button__caption">Available on</span>
+                <span class="store-button__name">Google Play</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <img class="mobile-app__screens" src="../../assets/img/mobile-screens.png"
+          alt="The Resource app on two phones — menu and order screens" />
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+</body>
+
+</html>

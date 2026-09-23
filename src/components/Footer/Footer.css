@@ -1,0 +1,147 @@
+/* ============================================================
+   Footer (Coffee House) — shared "Contact us" card
+   Figma: contacts (216:1396), surface card, radius 40.
+
+   Structure:
+     .footer (full-bleed) > .container > .footer__card
+       > .footer__offer (title + socials) | .footer__info (Contact us + rows)
+
+   Sizes (Figma):
+     Desktop: card 1360×450, padding 100, offer 530 | info 530, gap 100
+     Tablet:  card 688, padding 100/60, blocks stacked, gap 100
+     Mobile:  card 348, padding 60/16, blocks stacked, gap 40
+   ============================================================ */
+
+.footer {
+	margin-bottom: 40px;
+}
+
+.footer__card {
+	padding: 100px;
+	border-radius: var(--radius-large); /* 40px */
+	background-color: var(--color-surface);
+	display: flex;
+	gap: var(--space-2xl);
+	align-items: center;
+}
+
+/* ---------- Offer: title + socials ---------- */
+
+.footer__offer {
+	max-width: 530px;
+	width: 100%;
+	flex-shrink: 0;
+}
+
+.footer__title {
+	margin-bottom: var(--space-xl); /* 40px to socials */
+	color: var(--color-text-inverse);
+}
+
+.footer__socials {
+	display: flex;
+	gap: var(--space-sm); /* 12px (Figma) */
+}
+
+.footer__social {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	border: 1px solid var(--color-border-primary); /* #c1b6ad / #665f55 (Figma button-icon-light) */
+	border-radius: 50%;
+	color: var(--color-text-inverse);
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+/* Figma button-icon-light hover: the circle fills with the page shade and
+   the icon flips to the theme's primary text colour. */
+.footer__social:hover {
+	background-color: var(--color-background); /* #e1d4c9 / #292826 */
+	color: var(--color-text-primary); /* #403f3d / #e1d4c9 */
+}
+
+/* ---------- Info: "Contact us" + contact rows ---------- */
+
+.footer__info {
+	max-width: 530px;
+	width: 100%;
+}
+
+.footer__info-title {
+	margin-bottom: var(--space-xl); /* 40px to the list */
+	font-size: var(--font-size-h3);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-h3);
+	color: var(--color-text-inverse);
+}
+
+.footer__contacts {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-md); /* 16px between rows (Figma) */
+}
+
+.footer__contact {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs); /* 8px icon→text */
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-body);
+	color: var(--color-text-inverse);
+}
+
+.footer__contact::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 2px;
+	background-color: var(--color-text-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--transition);
+}
+
+.footer__contact:hover::after {
+	transform: scaleX(1);
+}
+
+.footer__contact-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 20px;
+	width: 20px;
+	height: 20px;
+}
+
+/* ---------- Tablet (≤768px) — blocks stack, 60px side padding ---------- */
+
+@media (max-width: 1200px) {
+	.footer__card {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: var(--space-2xl); /* 100px */
+		padding: 100px 60px;
+	}
+
+	.footer__info {
+		width: 100%;
+	}
+}
+
+/* ---------- Mobile (≤380px) — tight card padding, 40px stack gap ---------- */
+
+@media (max-width: 640px) {
+	.footer__card {
+		gap: var(--space-xl); /* 40px */
+		padding: 60px 16px;
+	}
+}

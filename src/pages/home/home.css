@@ -1,0 +1,439 @@
+/* ============================================================
+   Home page — Hero section (Figma node 216:1370)
+   ------------------------------------------------------------
+   Structure:
+     .hero (page container) > .hero__card (image backdrop)
+       > .hero__offer (title / body / CTA, gap 40)
+
+   Figma sizes:
+     Desktop (1440): card 1360×644, radius 40, padding-inline 100
+     Tablet  (768) : card 688×644,  padding-inline 60, title stays 72px
+     Mobile  (380) : card 348×552,  padding-inline 16, title 42px
+   ============================================================ */
+
+.hero {
+	margin-top: var(--space-2xl); /* 20px from the fixed header (Figma gap) */
+	margin-bottom: var(--space-2xl); /* 100px section gap to the next section */
+}
+
+.hero__card {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 644px;
+	padding-inline: 100px;
+	border-radius: var(--radius-large);
+	background-color: var(--color-surface);
+	background-image: url('../../assets/img/hero.png');
+	background-size: cover;
+	background-position: center;
+}
+
+.hero__offer {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl); /* 40px between title / body / CTA */
+	max-width: 530px;
+	min-width: 0;
+}
+
+.hero__title,
+.hero__body {
+	min-width: 0;
+}
+
+.hero__title {
+	/* Figma anchors: 72px at ≥768 ([T]/desktop keeps 72), 42px at ≤380 ([M]).
+     Between the two specified widths the size scales fluidly so a narrow card
+     never shows an oversized, heavily wrapped heading. */
+	font-size: clamp(42px, calc(42px + (100vw - 380px) * (30 / 388)), 72px);
+	line-height: 105%;
+	color: var(--color-text-inverse);
+}
+
+.hero__body {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-inverse);
+}
+
+/* ---------- Tablet (≤768px) — nav hides, burger shows; hero text stays 72px ---------- */
+
+@media (max-width: 768px) {
+	.hero__card {
+		padding-inline: 60px;
+	}
+
+	.hero .hero__button .cup-icon {
+		opacity: 1;
+	}
+}
+
+/* ---------- Mobile (≤380px) ---------- */
+
+@media (max-width: 640px) {
+	.hero__card {
+		min-height: 552px;
+		padding-inline: var(--space-md); /* 16px */
+	}
+}
+
+/* ============================================================
+   Home page — Favorite coffee slider (Figma node 216:1520)
+   ------------------------------------------------------------
+   Structure:
+     .favorite (container) > .favorite__title + .slider + .slider__controls
+     .slider > .slider__arrow --prev | .slider__viewport
+            > .slider__track > .slide > .slide__card (image + body)
+   One card (480 wide on desktop) is shown centered; the other two slides sit
+   off-viewport inside the clipped track (carousel motion is Part 2).
+
+   Figma sizes:
+     Desktop: card 480, image 480×480 square, arrows 60×60, controls 40×4
+     Tablet  : arrows + 480 card kept; viewport narrows with the container
+     Mobile  : arrows hidden, card fills the container (348 at 380px)
+   ============================================================ */
+
+.favorite {
+	margin-bottom: var(--space-2xl); /* 100px gap to the next section */
+}
+
+.favorite__title {
+	margin-bottom: var(--space-xl); /* 40px to the slider */
+	text-align: center;
+	color: var(--color-text-primary);
+	/* Fluid size flows from the global h2 tokens
+	   (clamp 60/75 ⇄ 32/40 between 768px and 380px, Figma). */
+}
+
+/* ---------- Slider row ---------- */
+
+.slider {
+	display: flex;
+	align-items: center;
+	gap: var(--space-xl); /* 40px between arrows and viewport */
+}
+
+.slider__arrow {
+	flex: 0 0 60px;
+	width: 60px;
+	height: 60px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary); /* arrow icon */
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+/* Figma button-icon-dark hover: solid fill + cream arrow.
+   Fill is theme-dependent (light #665F55, dark #403F3D). */
+.slider__arrow:hover {
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
+}
+
+.slider__viewport {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.slider__track {
+	display: flex;
+}
+
+.slide {
+	flex: 0 0 100%;
+	min-width: 0;
+	display: flex;
+	justify-content: center;
+}
+
+.slide__card {
+	display: flex;
+	flex-direction: column;
+	gap: 20px; /* Figma: image → text gap */
+	width: min(480px, 100%);
+}
+
+.slide__img {
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+.slide__body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-md); /* 16px */
+	text-align: center;
+}
+
+.slide__name,
+.slide__price {
+	font-size: var(--font-size-h3); /* 24px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-h3);
+	color: var(--color-text-primary);
+}
+
+.slide__description {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-primary);
+}
+
+/* ---------- Slider controls ---------- */
+
+.slider__controls {
+	display: flex;
+	justify-content: center;
+	gap: var(--space-sm); /* 12px */
+	margin-top: var(--space-xl); /* 40px */
+}
+
+.slider__control {
+	width: 40px;
+	height: 4px;
+	border-radius: var(--radius-pill);
+	background-color: var(--color-border-primary);
+}
+
+.slider__control.is-active {
+	background-color: var(--color-border-inverse);
+}
+
+/* ---------- Mobile — arrows hidden, card fills the container ---------- */
+
+@media (max-width: 640px) {
+	.slider__arrow {
+		display: none;
+	}
+}
+
+/* ============================================================
+   Home page — About (Figma node 216:1377)
+   ------------------------------------------------------------
+   Structure:
+     .about (container) > .about__title + .about__grid (2 columns)
+   Heading (global h2 — fluid 60/75 ⇄ 32/40): the segment
+   "the perfect and cozy place" is accent-colored + italic (Figma).
+   Images: staggered 2-column collage — col1 = tall/short,
+   col2 = short/tall. Tall box 590px, short box 430px, radius 20.
+   On ≤768 the columns stack full-width; heights stay fixed per Figma.
+   ============================================================ */
+
+.about {
+	margin-bottom: var(--space-2xl); /* 100px gap to the next section */
+}
+
+.about__title {
+	margin-bottom: var(--space-xl); /* 40px to the images */
+	color: var(--color-text-primary);
+	text-align: left;
+	/* Same fluid curve as the global h2 token, capped at 59px instead of 60px:
+	   at 1440 the extra px would push "catch up…" to a 4th line (Figma keeps
+	   3 lines at width 1360; the 15px scrollbar makes the live box 1345). */
+	font-size: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 59px);
+}
+
+.about__title .text-accent {
+	font-style: italic; /* Figma: the accent segment is italic */
+}
+
+.about__grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: var(--space-xl); /* 40px between columns and rows */
+}
+
+.about__column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-xl);
+}
+
+.about__figure {
+	width: 100%;
+	border-radius: var(--radius-medium); /* 20px */
+	overflow: hidden; /* clips the zoomed photo to the rounded box */
+	background-color: var(--color-surface); /* shown while the image loads */
+}
+
+.about__figure:hover .about__img {
+	transform: scale(1);
+}
+
+.about__figure--tall {
+	height: 590px;
+}
+
+.about__figure--short {
+	height: 430px;
+}
+
+.about__img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* Figma renders the photo zoomed in (scale 1.1); the wrapper clips it. */
+	transform: scale(1.1);
+	transition: transform var(--transition-duration) var(--transition-easing);
+}
+
+@media (max-width: 768px) {
+	.about__grid {
+		grid-template-columns: 1fr; /* columns stack full-width */
+	}
+
+	.about__figure--short {
+		display: none;
+	}
+}
+
+/* ============================================================
+   Home page — Mobile app (Figma node 216:1387)
+   ------------------------------------------------------------
+   Structure:
+     .mobile-app (container) > .mobile-app__inner
+       > .mobile-app__offer (title / text / store buttons)
+       + .mobile-app__screens (phone screens, square image)
+
+   Desktop: offer (630) left, screens (630) right, 100px gap
+   Tablet  (≤768): blocks stack, gap 100, screens centered
+   Mobile  (≤380): gap 40; store buttons wrap to a column
+   ============================================================ */
+
+.mobile-app {
+	margin-bottom: var(--space-2xl); /* 100px to the footer */
+}
+
+.mobile-app__inner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.mobile-app__offer {
+	flex: 0 0 630px;
+	width: 630px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: var(--space-xl); /* 40px title / text / buttons (Figma) */
+}
+
+.mobile-app__title {
+	color: var(--color-text-primary);
+}
+
+.mobile-app__text {
+	font-size: var(--font-size-body);
+	font-weight: var(--font-weight-regular);
+	line-height: var(--line-height-body);
+	color: var(--color-text-primary);
+}
+
+/* App Store / Google Play badge buttons (pill, 1px border, 200×64) */
+
+.mobile-app__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-lg); /* 20px between badges (Figma) */
+}
+
+.store-button {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-xs); /* 8px icon→label (Figma) */
+	width: 200px;
+	height: 64px;
+	padding-inline: 24px;
+	border: 1px solid var(--color-border-inverse);
+	border-radius: var(--radius-pill);
+	background-color: transparent;
+	color: var(--color-text-primary);
+	transition:
+		background-color var(--transition),
+		color var(--transition);
+}
+
+.store-button:hover {
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
+}
+
+.store-button__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex: 0 0 36px;
+	width: 36px;
+	height: 36px;
+}
+
+.store-button__label {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.store-button__caption {
+	font-size: var(--font-size-caption); /* 10px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-caption); /* 14px */
+	white-space: nowrap;
+}
+
+.store-button__name {
+	font-size: var(--font-size-button); /* 16px */
+	font-weight: var(--font-weight-semibold);
+	line-height: var(--line-height-button); /* 24px */
+	white-space: nowrap;
+}
+
+/* Phone screens — square 630×630 (desktop), 348 at mobile.
+   max-width caps the intrinsic 630px width so the image always shrinks. */
+
+.mobile-app__screens {
+	flex: 0 0 auto;
+	width: min(630px, 100%);
+	max-width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+}
+
+/* ---------- Narrow screens (≤1360px) — blocks stack, screens centered.
+   The desktop row (offer 630 + gap 100 + screens 630 = 1360px content) only
+   fits at a 1440px viewport, so below it the section collapses to the column
+   layout the Figma tablet frame (768px) defines: offer full-width on top,
+   screens centered under it, 100px stack gap. ---------- */
+
+@media (max-width: 1360px) {
+	.mobile-app__inner {
+		flex-direction: column;
+		gap: var(--space-2xl); /* 100px */
+	}
+
+	.mobile-app__offer {
+		flex-basis: auto;
+		width: 100%;
+	}
+}
+
+/* ---------- Mobile (≤380px) — 40px stack gap ---------- */
+
+@media (max-width: 640px) {
+	.mobile-app__inner {
+		gap: var(--space-xl); /* 40px */
+	}
+}
