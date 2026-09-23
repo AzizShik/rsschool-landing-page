@@ -84,6 +84,7 @@
 }
 
 .footer__contact {
+	position: relative;
 	display: inline-flex;
 	align-items: center;
 	gap: var(--space-xs); /* 8px icon→text */
@@ -93,7 +94,24 @@
 	color: var(--color-text-inverse);
 }
 
-a.footer__contact:hover {
+.footer__contact::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 2px;
+	background-color: var(--color-text-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--transition);
+}
+
+.footer__contact:hover::after {
+	transform: scaleX(1);
+}
+
+.footer__contact:hover {
 	color: var(--color-text-accent);
 }
 

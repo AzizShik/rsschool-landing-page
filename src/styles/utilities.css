@@ -19,12 +19,7 @@
 /* Accent-colored inline text (recurring in headings per Figma) */
 .text-accent {
 	color: var(--color-text-accent);
+	font-style: italic;
 }
 
-.text-highlight {
-	font-family: var(--font-family);
-	font-weight: 600;
-	font-style: italic;
-	line-height: 105%;
-	color: var(--color-text-inverse);
-}
+
