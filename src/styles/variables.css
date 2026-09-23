@@ -39,6 +39,15 @@
   --color-border-inverse: #665f55;
   --color-border-accent: #b0907a;
 
+  /* ---------- Hover / filled controls ----------
+     Outline controls (slider arrows, store buttons, refresh, burger,
+     category tabs, theme switch) fill with the theme's "container" slot on
+     hover; content flips to the cream inverse text. Figma variants:
+     button-icon-dark / button-secondary / tab-item / button-app-store /
+     button-google-play — the fill differs per theme, hence the pair. */
+  --color-hover-bg: #665f55;
+  --color-hover-text: #e1d4c9;
+
   /* ---------- Layout ---------- */
   --container-max-width: 1360px; /* 1440 − 2×40 page padding */
   --container-padding: 40px;
@@ -74,6 +83,10 @@
   --color-border-primary: #665f55;
   --color-border-inverse: #c1b6ad;
   --color-border-accent: #b0907a;
+
+  /* Hover fill = the dark container shade in dark mode too (#403F3D) */
+  --color-hover-bg: #403f3d;
+  --color-hover-text: #e1d4c9;
 }
 
 /* ---------- Responsive token overrides ---------- */

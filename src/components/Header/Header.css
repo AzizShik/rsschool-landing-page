@@ -80,11 +80,6 @@
 	transition: transform var(--transition);
 }
 
-.nav-link:hover,
-.nav-link.is-active {
-	color: var(--color-text-accent);
-}
-
 .nav-link:hover::after,
 .nav-link.is-active::after {
 	transform: scaleX(1);
@@ -142,7 +137,9 @@
 }
 
 .header__burger:hover {
-	background-color: var(--color-border-primary);
+	background-color: var(--color-hover-bg);
+	border-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .header__burger-icon {
@@ -199,9 +196,9 @@
 		display: inline-flex;
 	}
 
-  .nav-link--menu {
-    display: none;
-  }
+	.nav-link--menu {
+		display: none;
+	}
 }
 
 /* ---------- Tablet (≤768px) ---------- */

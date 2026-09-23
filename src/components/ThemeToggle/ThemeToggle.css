@@ -29,40 +29,19 @@
 		color var(--transition);
 }
 
-.theme-switch__button svg path {
-	transition: fill var(--transition);
-}
-
-/* Active side gets the accent fill; its icon uses the cream inverse color.
-   The inactive side stays transparent with the primary text color, exactly
-   mirroring the Figma light/dark variants. */
-
-.theme-switch__button--light.theme-switch__button--active {
-	background-color: var(--color-text-accent);
-	color: var(--color-text-inverse);
-}
-
-.theme-switch__button--light:hover {
-	background-color: var(--color-text-accent);
-	color: var(--color-text-inverse);
-}
-
+/* The active side always gets the accent fill (#B0907A) with the cream
+   inverse icon — in both themes (Figma "Theme switch" light & dark frames). */
+.theme-switch__button--light.theme-switch__button--active,
 .theme-switch__button--dark.theme-switch__button--active {
-	background-color: var(--color-border-primary);
+	background-color: var(--color-text-accent);
 	color: var(--color-text-inverse);
 }
 
-.theme-switch__button--dark:hover {
-	background-color: var(--color-border-primary);
-	color: var(--color-text-inverse);
-}
-
-.theme-switch__button--dark:hover svg path {
-	fill: var(--color-text-inverse);
-}
-
-.theme-switch__button--dark.theme-switch__button--active svg path {
-	fill: var(--color-text-inverse);
+/* Hover fills the INACTIVE side with the theme's hover slot (Figma hover
+   frames: light #665F55, dark #403F3D). The active side keeps its accent. */
+.theme-switch__button:not(.theme-switch__button--active):hover {
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .theme-switch__button:focus-visible {
