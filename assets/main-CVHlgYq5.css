@@ -294,7 +294,21 @@ div[id] {
 	flex: 0 0 auto;
 }
 
-.header__logo img {
+.header__logo-mark {
+	display: block;
+}
+
+/* Light theme shows the dark-text logo; the dark theme swaps to the
+   cream-text variant (Figma "Logo" / "Logo [Dark]", e.g. 147813:10242). */
+.header__logo-mark--dark {
+	display: none;
+}
+
+[data-theme='dark'] .header__logo-mark--light {
+	display: none;
+}
+
+[data-theme='dark'] .header__logo-mark--dark {
 	display: block;
 }
 
