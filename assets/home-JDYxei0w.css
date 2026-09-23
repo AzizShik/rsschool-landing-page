@@ -131,10 +131,11 @@
 		color var(--transition);
 }
 
-/* Figma button-icon-dark hover: solid bg + cream arrow */
+/* Figma button-icon-dark hover: solid fill + cream arrow.
+   Fill is theme-dependent (light #665F55, dark #403F3D). */
 .slider__arrow:hover {
-	background-color: var(--color-border-inverse);
-	color: var(--color-text-inverse);
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .slider__viewport {
@@ -260,19 +261,33 @@
 	gap: var(--space-xl);
 }
 
-.about__img {
+.about__figure {
 	width: 100%;
-	object-fit: cover;
 	border-radius: var(--radius-medium); /* 20px */
+	overflow: hidden; /* clips the zoomed photo to the rounded box */
 	background-color: var(--color-surface); /* shown while the image loads */
 }
 
-.about__img--tall {
+.about__figure:hover .about__img {
+	transform: scale(1);
+}
+
+.about__figure--tall {
 	height: 590px;
 }
 
-.about__img--short {
+.about__figure--short {
 	height: 430px;
+}
+
+.about__img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* Figma renders the photo zoomed in (scale 1.1); the wrapper clips it. */
+	transform: scale(1.1);
+	transition: transform var(--transition-duration) var(--transition-easing);
 }
 
 @media (max-width: 768px) {
@@ -280,9 +295,9 @@
 		grid-template-columns: 1fr; /* columns stack full-width */
 	}
 
-  .about__img--short {
-    display: none;
-  }
+	.about__figure--short {
+		display: none;
+	}
 }
 
 /* ============================================================
@@ -353,8 +368,8 @@
 }
 
 .store-button:hover {
-	background-color: var(--color-border-inverse);
-	color: var(--color-text-inverse);
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .store-button__icon {

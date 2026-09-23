@@ -108,6 +108,15 @@ p {
   --color-border-inverse: #665f55;
   --color-border-accent: #b0907a;
 
+  /* ---------- Hover / filled controls ----------
+     Outline controls (slider arrows, store buttons, refresh, burger,
+     category tabs, theme switch) fill with the theme's "container" slot on
+     hover; content flips to the cream inverse text. Figma variants:
+     button-icon-dark / button-secondary / tab-item / button-app-store /
+     button-google-play — the fill differs per theme, hence the pair. */
+  --color-hover-bg: #665f55;
+  --color-hover-text: #e1d4c9;
+
   /* ---------- Layout ---------- */
   --container-max-width: 1360px; /* 1440 − 2×40 page padding */
   --container-padding: 40px;
@@ -143,6 +152,10 @@ p {
   --color-border-primary: #665f55;
   --color-border-inverse: #c1b6ad;
   --color-border-accent: #b0907a;
+
+  /* Hover fill = the dark container shade in dark mode too (#403F3D) */
+  --color-hover-bg: #403f3d;
+  --color-hover-text: #e1d4c9;
 }
 
 /* ---------- Responsive token overrides ---------- */
@@ -331,11 +344,6 @@ div[id] {
 	transition: transform var(--transition);
 }
 
-.nav-link:hover,
-.nav-link.is-active {
-	color: var(--color-text-accent);
-}
-
 .nav-link:hover::after,
 .nav-link.is-active::after {
 	transform: scaleX(1);
@@ -393,7 +401,9 @@ div[id] {
 }
 
 .header__burger:hover {
-	background-color: var(--color-border-primary);
+	background-color: var(--color-hover-bg);
+	border-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .header__burger-icon {
@@ -450,9 +460,9 @@ div[id] {
 		display: inline-flex;
 	}
 
-  .nav-link--menu {
-    display: none;
-  }
+	.nav-link--menu {
+		display: none;
+	}
 }
 
 /* ---------- Tablet (≤768px) ---------- */
@@ -529,7 +539,7 @@ div[id] {
 	justify-content: center;
 	width: 60px;
 	height: 60px;
-	border: 1px solid var(--color-text-inverse);
+	border: 1px solid var(--color-border-primary); /* #c1b6ad / #665f55 (Figma button-icon-light) */
 	border-radius: 50%;
 	color: var(--color-text-inverse);
 	transition:
@@ -537,9 +547,11 @@ div[id] {
 		color var(--transition);
 }
 
+/* Figma button-icon-light hover: the circle fills with the page shade and
+   the icon flips to the theme's primary text colour. */
 .footer__social:hover {
-	background-color: var(--color-text-inverse);
-	color: var(--color-surface);
+	background-color: var(--color-background); /* #e1d4c9 / #292826 */
+	color: var(--color-text-primary); /* #403f3d / #e1d4c9 */
 }
 
 /* ---------- Info: "Contact us" + contact rows ---------- */
@@ -589,10 +601,6 @@ div[id] {
 
 .footer__contact:hover::after {
 	transform: scaleX(1);
-}
-
-.footer__contact:hover {
-	color: var(--color-text-accent);
 }
 
 .footer__contact-icon {
@@ -658,40 +666,19 @@ div[id] {
 		color var(--transition);
 }
 
-.theme-switch__button svg path {
-	transition: fill var(--transition);
-}
-
-/* Active side gets the accent fill; its icon uses the cream inverse color.
-   The inactive side stays transparent with the primary text color, exactly
-   mirroring the Figma light/dark variants. */
-
-.theme-switch__button--light.theme-switch__button--active {
-	background-color: var(--color-text-accent);
-	color: var(--color-text-inverse);
-}
-
-.theme-switch__button--light:hover {
-	background-color: var(--color-text-accent);
-	color: var(--color-text-inverse);
-}
-
+/* The active side always gets the accent fill (#B0907A) with the cream
+   inverse icon — in both themes (Figma "Theme switch" light & dark frames). */
+.theme-switch__button--light.theme-switch__button--active,
 .theme-switch__button--dark.theme-switch__button--active {
-	background-color: var(--color-border-primary);
+	background-color: var(--color-text-accent);
 	color: var(--color-text-inverse);
 }
 
-.theme-switch__button--dark:hover {
-	background-color: var(--color-border-primary);
-	color: var(--color-text-inverse);
-}
-
-.theme-switch__button--dark:hover svg path {
-	fill: var(--color-text-inverse);
-}
-
-.theme-switch__button--dark.theme-switch__button--active svg path {
-	fill: var(--color-text-inverse);
+/* Hover fills the INACTIVE side with the theme's hover slot (Figma hover
+   frames: light #665F55, dark #403F3D). The active side keeps its accent. */
+.theme-switch__button:not(.theme-switch__button--active):hover {
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .theme-switch__button:focus-visible {

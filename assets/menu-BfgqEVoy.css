@@ -71,11 +71,13 @@
 		color var(--transition);
 }
 
-/* Active pill — filled with the surface color (Figma #665f55 / dark #403f3d) */
-.menu__tab--active {
-	border-color: var(--color-surface);
-	background-color: var(--color-surface);
-	color: var(--color-text-inverse);
+/* Active & hover pill — filled with the theme hover slot (Figma tab-item
+   State=active / State=hover: light #665F55, dark #403F3D). */
+.menu__tab--active,
+.menu__tab:hover {
+	border-color: var(--color-hover-bg);
+	background-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 .menu__tab-icon {
@@ -86,15 +88,18 @@
 	width: 30px;
 	height: 30px;
 	border-radius: var(--radius-pill);
-	background-color: var(--color-border-primary); /* inactive circle #c1b6ad */
+	background-color: var(--color-border-primary); /* inactive circle #c1b6ad / #665f55 */
+	color: var(--color-text-primary); /* emoji glyph */
 	font-size: var(--font-size-body);
 	line-height: 1;
 }
 
-.menu__tab--active .menu__tab-icon {
-	background-color: var(
-		--color-text-inverse
-	); /* cream circle on the filled pill */
+/* The chip inside the filled pill swaps to the page shade (Figma:
+   light #e1d4c9 / dark #292826) */
+.menu__tab--active .menu__tab-icon,
+.menu__tab:hover .menu__tab-icon {
+	background-color: var(--color-background);
+	color: var(--color-text-primary);
 }
 
 /* ---------- Product grid ---------- */
@@ -193,12 +198,14 @@
 	color: var(--color-text-primary); /* icon stroke */
 	transition:
 		background-color var(--transition),
+		border-color var(--transition),
 		color var(--transition);
 }
 
 .menu__refresh:hover {
-	background-color: var(--color-border-inverse);
-	color: var(--color-text-inverse);
+	background-color: var(--color-hover-bg);
+	border-color: var(--color-hover-bg);
+	color: var(--color-hover-text);
 }
 
 /* ---------- Responsive ---------- */
