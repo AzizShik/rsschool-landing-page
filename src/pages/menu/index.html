@@ -18,14 +18,11 @@
       <div class="menu__offer">
         <h1 class="menu__title">Behind each of our cups hides an amazing surprise</h1>
 
-        <div class="menu__tabs" role="tablist" aria-label="Product categories">
+        <div class="menu__tabs" role="group" aria-label="Product categories">
           <button
             class="menu__tab menu__tab--active"
             type="button"
-            role="tab"
-            id="menu-tab-coffee"
-            aria-controls="menu-panel"
-            aria-selected="true"
+            aria-pressed="true"
           >
             <span class="menu__tab-icon" aria-hidden="true">☕</span>
             Coffee
@@ -33,10 +30,7 @@
           <button
             class="menu__tab"
             type="button"
-            role="tab"
-            id="menu-tab-tea"
-            aria-controls="menu-panel"
-            aria-selected="false"
+            aria-pressed="false"
           >
             <span class="menu__tab-icon" aria-hidden="true">🍵</span>
             Tea
@@ -44,10 +38,7 @@
           <button
             class="menu__tab"
             type="button"
-            role="tab"
-            id="menu-tab-dessert"
-            aria-controls="menu-panel"
-            aria-selected="false"
+            aria-pressed="false"
           >
             <span class="menu__tab-icon" aria-hidden="true">🍰</span>
             Dessert
@@ -55,7 +46,10 @@
         </div>
       </div>
 
-      <div class="menu__panel" id="menu-panel" role="tabpanel" aria-labelledby="menu-tab-coffee" tabindex="0">
+      <!-- Category switching is Part 2; only the active panel is rendered for
+           now, so the tabs are plain toggle buttons (aria-pressed) rather than
+           a tablist pointing at one shared tabpanel. -->
+      <div class="menu__panel" aria-label="Coffee products">
         <ul class="menu__grid">
           <li class="product-card">
             <div class="product-card__media">
