@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
+import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from './src/js/theme.js'
+
 /**
  * Shared Header — single source of truth.
  *
@@ -9,6 +11,7 @@ import { defineConfig } from 'vite'
  * and is injected into every page's `<header id="site-header"></header>` both
  * in dev and at build time, so the header exists in the static HTML without
  * needing JavaScript. Only per-page links/active states vary (see PAGES below).
+ * The same plugin injects a blocking theme bootstrap into <head>.
  */
 
 // Exact coffee-cup vector from Figma (component "coffee-cup", e.g. node 147809:7517):
@@ -105,6 +108,35 @@ function refreshIcon() {
 }
 
 // Per-page placeholder values for the shared header partial.
+// Blocking theme bootstrap, injected into <head> of every page.
+//
+// The theme attribute must be on <html> *before* the first paint, otherwise a
+// visitor with a stored dark theme sees a flash of the light theme while
+// main.js loads. It duplicates the tiny bit of logic in theme.js on purpose
+// (it cannot import it — this runs before any module script), so it reuses the
+// exported THEME_ATTRIBUTE / THEME_STORAGE_KEY keys rather than hardcoding
+// them, and keeps the same light/dark fallback order.
+function themeBootstrap() {
+  return `<script>
+      (function () {
+        var attribute = ${JSON.stringify(THEME_ATTRIBUTE)}
+        var key = ${JSON.stringify(THEME_STORAGE_KEY)}
+        var theme = 'light'
+        try {
+          var stored = localStorage.getItem(key)
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark'
+          }
+        } catch (error) {
+          // localStorage unavailable (private mode) — fall back to the OS theme
+        }
+        document.documentElement.setAttribute(attribute, theme)
+      })()
+    </script>`
+}
+
 const PAGES = [
   {
     match: 'pages/home/index.html',
@@ -178,6 +210,7 @@ function sharedHeader() {
         return html
           .replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial)
           .replace(/<footer\s+id="site-footer"[^>]*>\s*<\/footer>/, () => footerPartial)
+          .replace('</head>', () => `    ${themeBootstrap()}\n  </head>`)
           .replaceAll('{{CUP_ICON}}', cupIcon(20))
           .replaceAll('{{ARROW_LEFT}}', arrowIcon('left'))
           .replaceAll('{{ARROW_RIGHT}}', arrowIcon('right'))
