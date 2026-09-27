@@ -215,18 +215,6 @@
 	}
 }
 
-/* ---------- Tablet (≤768px) ---------- */
-
-/* @media (max-width: 768px) {
-	.header__nav {
-		display: none;
-	}
-
-	.header__burger {
-		display: inline-flex;
-	}
-} */
-
 /* ---------- Mobile (≤380px) ---------- */
 
 @media (max-width: 380px) {
