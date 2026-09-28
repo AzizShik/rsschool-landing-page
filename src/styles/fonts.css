@@ -1,0 +1,52 @@
+/* ============================================================
+   Local Inter
+   ------------------------------------------------------------
+   Served from `src/assets/fonts` instead of fonts.googleapis.com.
+   Self-hosting removes a third-party request from the critical path
+   (DNS + TLS handshake to fonts.gstatic.com) and keeps the page
+   working offline, which matters for the deployed demo.
+
+   The files are static instances, one per weight/style pair — the same
+   thing Google's css2 endpoint serves for `family=Inter:wght@400;600;700`.
+
+   `font-display: swap` keeps the behaviour the `&display=swap` on the old
+   @import gave: text paints immediately in the fallback instead of waiting
+   for the font.
+
+   Bold is deliberately absent. `--font-weight-bold: 700` exists as a token
+   but nothing uses it, and there is no bold file. If bold is ever needed, add
+   the file plus one more @font-face rather than letting the browser
+   synthesise a fake bold.
+   ============================================================ */
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../assets/fonts/Inter-Regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../assets/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: url('../assets/fonts/Inter-Italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: italic;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../assets/fonts/Inter-SemiBoldItalic.woff2') format('woff2');
+}

@@ -11,6 +11,8 @@ import { initCatalog } from './catalog.js'
 import { initProductModal } from './productModal.js'
 import { initHeroVideo } from './heroVideo.js'
 
+// @font-face has to be in the bundle before anything is rendered with it.
+import '../styles/fonts.css'
 import '../styles/reset.css'
 import '../styles/variables.css'
 import '../styles/global.css'
