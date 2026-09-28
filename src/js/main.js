@@ -6,6 +6,7 @@
 // the Part 2 interactions.
 import { initTheme } from './theme.js'
 import { initBurgerMenu } from './burgerMenu.js'
+import { initSlider } from './slider.js'
 
 
 import '../styles/reset.css'
@@ -20,3 +21,7 @@ import '../components/ProductModal/ProductModal.css'
 
 initTheme()
 initBurgerMenu()
+// Home page only — initSlider returns early when the markup is absent, so it
+// is safe to call from the shared entry point.
+initSlider()
+// Menu page only — same early return applies.

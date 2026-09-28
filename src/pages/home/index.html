@@ -34,7 +34,7 @@
     <section class="favorite container" id="favorite-coffee">
       <h2 class="favorite__title">Choose your <span class="text-accent">favorite</span> coffee</h2>
 
-      <div class="slider">
+      <div class="slider" aria-roledescription="carousel" aria-label="Favorite coffee">
         <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
           {{ARROW_LEFT}}
         </button>
@@ -91,11 +91,13 @@
         </button>
       </div>
 
-      <div class="slider__controls">
-        <span class="slider__control is-active" aria-hidden="true"></span>
-        <span class="slider__control" aria-hidden="true"></span>
-        <span class="slider__control" aria-hidden="true"></span>
-      </div>
+      <!-- Indicators are generated from the slides in slider.js, so the two can
+           never drift apart in count. They are buttons rather than decorative
+           bars because Figma hides the arrows at 380px ([M] slider has only
+           row-slider and controls) — without them the slider would be
+           impossible to move on a phone. -->
+      <div class="slider__controls"></div>
+      <p class="visually-hidden" role="status" data-slider-status></p>
     </section>
 
     <section class="about container" id="about">
