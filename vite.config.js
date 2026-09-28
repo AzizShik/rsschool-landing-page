@@ -15,9 +15,23 @@ import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from './src/js/theme.js'
  */
 
 // Exact coffee-cup vector from Figma (component "coffee-cup", e.g. node 147809:7517):
-// cup body + handle + two steam curls. stroke-width 1.5 at 20px, 3 at 40px.
+// cup body + handle + two steam curls. One 20-unit path is reused at both sizes.
+//
+// Figma strokes the 20px nav variant at 1.5px and the 40px burger variant at
+// 2px — the stroke is *not* proportional to the icon size, so it cannot be a
+// single value.
+//
+// `stroke-width` is expressed in viewBox user units, not pixels, and the 20-unit
+// artwork is drawn at `size` px — so the scale factor size / 20 multiplies the
+// stroke as well. The table below holds the stroke in *pixels* as Figma defines
+// it, and the division converts it to the units the viewBox actually uses.
+// Getting this wrong renders the 40px variant at 4px (2 × scale) or 6px
+// (3 × scale) instead of 2px.
+const CUP_VIEWBOX = 20
+const CUP_STROKE_PX = { 20: 1.5, 40: 2 }
+
 function cupIcon(size) {
-  const strokeWidth = size >= 40 ? 3 : 1.5
+  const strokeWidth = CUP_STROKE_PX[size] / (size / CUP_VIEWBOX)
   return `
       <svg class="cup-icon" viewBox="0 0 20 20" width="${size}" height="${size}" aria-hidden="true" fill="none">
         <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />
