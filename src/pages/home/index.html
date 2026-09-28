@@ -16,6 +16,22 @@
   <main>
     <section class="hero container" aria-label="Welcome">
       <div class="hero__card">
+        <!-- Decorative backdrop. The copy beside it already carries the
+             message and the footage repeats the same shot as hero.png, so the
+             video adds no information — hence aria-hidden and no controls.
+             hero.png is the matching still frame and doubles as the poster, so
+             the first paint is never an empty rectangle.
+
+             Playback is started from heroVideo.js rather than by an `autoplay`
+             attribute, so prefers-reduced-motion can hold the poster instead of
+             briefly playing first. `muted` is an attribute rather than
+             something set from script because the autoplay policy only exempts
+             a video that is already silent when playback is requested. -->
+        <video class="hero__video" data-hero-video muted loop playsinline
+          poster="../../assets/img/hero.png" aria-hidden="true">
+          <source src="../../assets/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+
         <div class="hero__offer">
           <h1 class="hero__title"><span class="text-accent">Enjoy</span> premium coffee at our charming cafe</h1>
           <p class="hero__body">
@@ -34,7 +50,7 @@
     <section class="favorite container" id="favorite-coffee">
       <h2 class="favorite__title">Choose your <span class="text-accent">favorite</span> coffee</h2>
 
-      <div class="slider">
+      <div class="slider" aria-roledescription="carousel" aria-label="Favorite coffee">
         <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
           {{ARROW_LEFT}}
         </button>
@@ -43,7 +59,8 @@
           <ul class="slider__track">
             <li class="slide">
               <div class="slide__card">
-                <img class="slide__img" src="../../assets/img/slider-1.png" alt="S'mores Frappuccino" />
+                <img class="slide__img" src="../../assets/img/slider-1.png" alt="S'mores Frappuccino"
+                  width="1060" height="1060" />
                 <div class="slide__body">
                   <h3 class="slide__name">S'mores Frappuccino</h3>
                   <p class="slide__description">
@@ -56,7 +73,8 @@
             </li>
             <li class="slide">
               <div class="slide__card">
-                <img class="slide__img" src="../../assets/img/slider-2.png" alt="Caramel Macchiato" />
+                <img class="slide__img" src="../../assets/img/slider-2.png" alt="Caramel Macchiato"
+                  width="1060" height="1060" />
                 <div class="slide__body">
                   <h3 class="slide__name">Caramel Macchiato</h3>
                   <p class="slide__description">
@@ -69,7 +87,8 @@
             </li>
             <li class="slide">
               <div class="slide__card">
-                <img class="slide__img" src="../../assets/img/slider-3.png" alt="Ice coffee" />
+                <img class="slide__img" src="../../assets/img/slider-3.png" alt="Ice coffee"
+                  width="1060" height="1060" />
                 <div class="slide__body">
                   <h3 class="slide__name">Ice coffee</h3>
                   <p class="slide__description">
@@ -88,11 +107,13 @@
         </button>
       </div>
 
-      <div class="slider__controls">
-        <span class="slider__control is-active" aria-hidden="true"></span>
-        <span class="slider__control" aria-hidden="true"></span>
-        <span class="slider__control" aria-hidden="true"></span>
-      </div>
+      <!-- Indicators are generated from the slides in slider.js, so the two can
+           never drift apart in count. They are buttons rather than decorative
+           bars because Figma hides the arrows at 380px ([M] slider has only
+           row-slider and controls) — without them the slider would be
+           impossible to move on a phone. -->
+      <div class="slider__controls"></div>
+      <p class="visually-hidden" role="status" data-slider-status></p>
     </section>
 
     <section class="about container" id="about">
@@ -106,21 +127,21 @@
         <div class="about__column">
           <div class="about__figure about__figure--tall">
             <img class="about__img" src="../../assets/img/about-1.png"
-              alt="Cozy seating corner inside the Coffee House Resource cafe" />
+              alt="Cozy seating corner inside the Coffee House Resource cafe" width="1452" height="1452" />
           </div>
           <div class="about__figure about__figure--short">
             <img class="about__img" src="../../assets/img/about-2.png"
-              alt="A cup of cappuccino on a wooden cafe table" />
+              alt="A cup of cappuccino on a wooden cafe table" width="1452" height="1452" />
           </div>
         </div>
         <div class="about__column">
           <div class="about__figure about__figure--short">
             <img class="about__img" src="../../assets/img/about-3.png"
-              alt="Warm cafe interior with tables and soft evening light" />
+              alt="Warm cafe interior with tables and soft evening light" width="1452" height="1452" />
           </div>
           <div class="about__figure about__figure--tall">
             <img class="about__img" src="../../assets/img/about-4.png"
-              alt="Baristas making coffee drinks behind the cafe counter" />
+              alt="Baristas making coffee drinks behind the cafe counter" width="1452" height="1452" />
           </div>
         </div>
       </div>
@@ -153,7 +174,7 @@
           </div>
         </div>
         <img class="mobile-app__screens" src="../../assets/img/mobile-screens.png"
-          alt="The Resource app on two phones — menu and order screens" />
+          alt="The Resource app on two phones — menu and order screens" width="1260" height="1260" />
       </div>
     </section>
   </main>

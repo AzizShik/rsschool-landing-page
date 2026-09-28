@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs'
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 
+import { THEME_ATTRIBUTE, THEME_STORAGE_KEY } from './src/js/theme.js'
+
 /**
  * Shared Header — single source of truth.
  *
@@ -9,12 +11,27 @@ import { defineConfig } from 'vite'
  * and is injected into every page's `<header id="site-header"></header>` both
  * in dev and at build time, so the header exists in the static HTML without
  * needing JavaScript. Only per-page links/active states vary (see PAGES below).
+ * The same plugin injects a blocking theme bootstrap into <head>.
  */
 
 // Exact coffee-cup vector from Figma (component "coffee-cup", e.g. node 147809:7517):
-// cup body + handle + two steam curls. stroke-width 1.5 at 20px, 3 at 40px.
+// cup body + handle + two steam curls. One 20-unit path is reused at both sizes.
+//
+// Figma strokes the 20px nav variant at 1.5px and the 40px burger variant at
+// 2px — the stroke is *not* proportional to the icon size, so it cannot be a
+// single value.
+//
+// `stroke-width` is expressed in viewBox user units, not pixels, and the 20-unit
+// artwork is drawn at `size` px — so the scale factor size / 20 multiplies the
+// stroke as well. The table below holds the stroke in *pixels* as Figma defines
+// it, and the division converts it to the units the viewBox actually uses.
+// Getting this wrong renders the 40px variant at 4px (2 × scale) or 6px
+// (3 × scale) instead of 2px.
+const CUP_VIEWBOX = 20
+const CUP_STROKE_PX = { 20: 1.5, 40: 2 }
+
 function cupIcon(size) {
-  const strokeWidth = size >= 40 ? 3 : 1.5
+  const strokeWidth = CUP_STROKE_PX[size] / (size / CUP_VIEWBOX)
   return `
       <svg class="cup-icon" viewBox="0 0 20 20" width="${size}" height="${size}" aria-hidden="true" fill="none">
         <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke="currentColor" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-linejoin="round" />
@@ -105,6 +122,35 @@ function refreshIcon() {
 }
 
 // Per-page placeholder values for the shared header partial.
+// Blocking theme bootstrap, injected into <head> of every page.
+//
+// The theme attribute must be on <html> *before* the first paint, otherwise a
+// visitor with a stored dark theme sees a flash of the light theme while
+// main.js loads. It duplicates the tiny bit of logic in theme.js on purpose
+// (it cannot import it — this runs before any module script), so it reuses the
+// exported THEME_ATTRIBUTE / THEME_STORAGE_KEY keys rather than hardcoding
+// them, and keeps the same light/dark fallback order.
+function themeBootstrap() {
+  return `<script>
+      (function () {
+        var attribute = ${JSON.stringify(THEME_ATTRIBUTE)}
+        var key = ${JSON.stringify(THEME_STORAGE_KEY)}
+        var theme = 'light'
+        try {
+          var stored = localStorage.getItem(key)
+          if (stored === 'light' || stored === 'dark') {
+            theme = stored
+          } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            theme = 'dark'
+          }
+        } catch (error) {
+          // localStorage unavailable (private mode) — fall back to the OS theme
+        }
+        document.documentElement.setAttribute(attribute, theme)
+      })()
+    </script>`
+}
+
 const PAGES = [
   {
     match: 'pages/home/index.html',
@@ -178,6 +224,7 @@ function sharedHeader() {
         return html
           .replace(/<header\s+id="site-header"[^>]*>\s*<\/header>/, () => partial)
           .replace(/<footer\s+id="site-footer"[^>]*>\s*<\/footer>/, () => footerPartial)
+          .replace('</head>', () => `    ${themeBootstrap()}\n  </head>`)
           .replaceAll('{{CUP_ICON}}', cupIcon(20))
           .replaceAll('{{ARROW_LEFT}}', arrowIcon('left'))
           .replaceAll('{{ARROW_RIGHT}}', arrowIcon('right'))
