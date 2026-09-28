@@ -8,7 +8,7 @@ import { initTheme } from './theme.js'
 import { initBurgerMenu } from './burgerMenu.js'
 import { initSlider } from './slider.js'
 import { initCatalog } from './catalog.js'
-
+import { initProductModal } from './productModal.js'
 
 import '../styles/reset.css'
 import '../styles/variables.css'
@@ -27,3 +27,4 @@ initBurgerMenu()
 initSlider()
 // Menu page only — same early return applies.
 initCatalog()
+initProductModal()

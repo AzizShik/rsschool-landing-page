@@ -18,23 +18,72 @@
       <div class="menu__offer">
         <h1 class="menu__title">Behind each of our cups hides an amazing surprise</h1>
 
-      <!-- Category pills and product cards are rendered by catalog.js from
+        <!-- Category pills and product cards are rendered by catalog.js from
            src/products.json. Nothing about the catalogue lives in this file:
            the product data has a single source of truth, and duplicating it
            here as markup is what the assignment penalises. -->
-      <div class="menu__tabs" role="group" aria-label="Product categories"></div>
+        <div class="menu__tabs" role="group" aria-label="Product categories"></div>
       </div>
 
-    <div class="menu__panel">
-      <ul class="menu__grid"></ul>
+      <div class="menu__panel">
+        <ul class="menu__grid"></ul>
 
-      <div class="menu__more" hidden>
+        <div class="menu__more" hidden>
           <button class="menu__refresh" type="button" aria-label="Show more products">
             {{REFRESH_ICON}}
           </button>
         </div>
       </div>
   </main>
+
+  <!-- Product dialog — the shell lives here, the content is built by
+       productModal.js from the same products.json object the card was built
+       from. `hidden` keeps it out of the tab order and the accessibility tree
+       until it is opened. -->
+  <div class="product-modal__backdrop" data-product-modal hidden>
+    <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-name">
+      <div class="product-modal__media">
+        <!-- src is set on open. alt stays empty: the product name is already
+             the dialog's accessible name and is rendered as text right beside
+             the image, so announcing it twice would just be noise. -->
+        <img class="product-modal__img" data-modal-image alt="" width="310" height="310" />
+      </div>
+
+      <div class="product-modal__details">
+        <div class="product-modal__top">
+          <h2 class="product-modal__name" id="product-modal-name" data-modal-name></h2>
+          <p class="product-modal__desc" data-modal-description></p>
+        </div>
+
+        <!-- Size is a single choice (radio), additives are many (checkbox). -->
+        <fieldset class="product-modal__group">
+          <legend class="product-modal__legend">Size</legend>
+          <div class="product-modal__options" data-modal-sizes></div>
+        </fieldset>
+
+        <fieldset class="product-modal__group">
+          <legend class="product-modal__legend">Additives</legend>
+          <div class="product-modal__options" data-modal-additives></div>
+        </fieldset>
+
+        <p class="product-modal__total">
+          <span>Total:</span>
+          <span data-modal-total></span>
+        </p>
+
+        <p class="product-modal__note">
+          <svg class="product-modal__info" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none"
+            stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+            <circle cx="8" cy="8" r="6.5" />
+            <path d="M8 7.2v4M8 4.8h.01" />
+          </svg>
+          <span>The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.</span>
+        </p>
+
+        <button class="product-modal__close" type="button" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
 
   <footer id="site-footer"></footer>
 </body>
