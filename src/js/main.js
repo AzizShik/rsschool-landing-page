@@ -7,6 +7,7 @@
 import { initTheme } from './theme.js'
 import { initBurgerMenu } from './burgerMenu.js'
 import { initSlider } from './slider.js'
+import { initCatalog } from './catalog.js'
 
 
 import '../styles/reset.css'
@@ -25,3 +26,4 @@ initBurgerMenu()
 // is safe to call from the shared entry point.
 initSlider()
 // Menu page only — same early return applies.
+initCatalog()
