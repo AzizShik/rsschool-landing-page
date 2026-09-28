@@ -16,6 +16,22 @@
   <main>
     <section class="hero container" aria-label="Welcome">
       <div class="hero__card">
+        <!-- Decorative backdrop. The copy beside it already carries the
+             message and the footage repeats the same shot as hero.png, so the
+             video adds no information — hence aria-hidden and no controls.
+             hero.png is the matching still frame and doubles as the poster, so
+             the first paint is never an empty rectangle.
+
+             Playback is started from heroVideo.js rather than by an `autoplay`
+             attribute, so prefers-reduced-motion can hold the poster instead of
+             briefly playing first. `muted` is an attribute rather than
+             something set from script because the autoplay policy only exempts
+             a video that is already silent when playback is requested. -->
+        <video class="hero__video" data-hero-video muted loop playsinline
+          poster="../../assets/img/hero.png" aria-hidden="true">
+          <source src="../../assets/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+
         <div class="hero__offer">
           <h1 class="hero__title"><span class="text-accent">Enjoy</span> premium coffee at our charming cafe</h1>
           <p class="hero__body">

@@ -9,6 +9,7 @@ import { initBurgerMenu } from './burgerMenu.js'
 import { initSlider } from './slider.js'
 import { initCatalog } from './catalog.js'
 import { initProductModal } from './productModal.js'
+import { initHeroVideo } from './heroVideo.js'
 
 import '../styles/reset.css'
 import '../styles/variables.css'
@@ -25,6 +26,7 @@ initBurgerMenu()
 // Home page only — initSlider returns early when the markup is absent, so it
 // is safe to call from the shared entry point.
 initSlider()
+initHeroVideo()
 // Menu page only — same early return applies.
 initCatalog()
 initProductModal()
