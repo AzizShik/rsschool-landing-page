@@ -2,18 +2,20 @@
    Menu (catalog) page — Figma node "menu"
    ------------------------------------------------------------
    Structure:
-     .menu (container) > .menu__offer (title + category tabs)
-       + .menu__grid (8 product cards) + .menu__more (refresh button)
+     .menu (container) > .menu__offer (title + category pills)
+       + .menu__grid (product cards) + .menu__more (load-more button)
+
+   The pills and the cards are built by src/js/catalog.js from
+   src/products.json; this file only styles them.
 
    Desktop (1440):
-     offer 236px = title (60/75, max 800 wide, 2 lines) + 40 + tabs 46
+     offer 236px = title (60/75, max 800 wide, 2 lines) + 40 + pills 46
      grid 1052px  = 4×310px cards in 2 rows, gap 40 (cards 310×506:
                     310 square image radius 40 + 196px body, padding 20)
-     No load-more button on desktop — all 8 products are shown (Figma).
-   Tablet/mobile (≤1360 / ≤640): the grid locks cards at 310 and drops
-     to 2 columns, then 1; below 768px only the first 4 cards render and
-     a 60px round "refresh" (load-more) button appears 58px below the
-     grid, exactly as the Figma tablet/mobile frames show (static, Part 1).
+
+   How many cards are visible is decided in JavaScript, per the assignment:
+   every card of the active category above 768px, the first four at 768px and
+   below, with the load-more button appearing only while cards are held back.
 
    Card look: transparent on the cream page with a 1px border in light
    mode; a surface fill in dark mode (tokens switch automatically).
@@ -130,11 +132,40 @@
 	background-color: transparent;
 	/* The card is transparent over the cream page in light mode; dark mode
 	   swaps it to the surface color so it stands out from the page. */
+}
+
+/* The card is a list item, so the "click any part of it" target is a real
+   button filling the card. A button cannot inherit the surrounding font, so
+   these four resets are what stop the card text from rendering in the
+   browser's default button styling. */
+.product-card__trigger {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	border: 0;
+	border-radius: inherit;
+	padding: 0;
+	background-color: transparent;
+	color: inherit;
+	font: inherit;
+	text-align: inherit;
 	cursor: pointer;
+}
+
+.product-card__trigger:focus-visible {
+	outline: 2px solid var(--color-border-accent);
+	outline-offset: 2px;
 }
 
 .product-card:hover .product-card__img {
 	transform: scale(1);
+}
+
+/* `.product-card` sets display:flex, which would otherwise beat the user
+   agent's `[hidden] { display: none }` and leave the trimmed cards on screen
+   — and still in the tab order. */
+.product-card[hidden] {
+	display: none;
 }
 
 .product-card__media {
@@ -169,19 +200,30 @@
 }
 
 .product-card__desc {
-	height: 72px; /* fixed 3-line block — Figma anchors the price regardless of text length */
+	/* Figma anchors the price regardless of how long the description is, so
+	   the block is a fixed 3-line box. `min-height` rather than `height` keeps
+	   that alignment for the short descriptions while letting a longer one
+	   grow instead of colliding with the price. */
+	min-height: 72px;
 	font-size: var(--font-size-body);
 	font-weight: var(--font-weight-regular);
 	line-height: var(--line-height-body);
 	color: var(--color-text-primary);
 }
 
-/* ---------- Load-more (refresh) button — hidden on desktop ---------- */
+/* ---------- Load-more (refresh) button ----------
+   Visibility is owned by catalog.js, not by a media query: the assignment
+   shows the control only while the active category still has cards held back,
+   and that depends on the product count as much as on the width. */
 
 .menu__more {
-	display: none;
+	display: flex;
 	justify-content: center;
 	margin-top: 40px; /* Figma gap from grid to the button on tablet/mobile */
+}
+
+.menu__more[hidden] {
+	display: none;
 }
 
 .menu__refresh {
@@ -206,24 +248,16 @@
 	color: var(--color-hover-text);
 }
 
-/* ---------- Responsive ---------- */
+/* ---------- Responsive ----------
+   Only the column count lives here. How many cards are shown is JavaScript
+   state (catalog.js), because the assignment ties that to 768px and to the
+   number of products in the active category. */
 
-/* Below 1360px the 4×310 grid no longer fits with 40px gaps, so the design
-   collapses to the tablet frame's 2-column layout: first 4 cards + a refresh
-   (load-more) button, exactly as the Figma tablet/mobile frames show. */
 @media (max-width: 1360px) {
 	.menu__grid {
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		max-width: 980px;
 		margin-inline: auto;
-	}
-
-	.product-card:nth-child(n + 7) {
-		display: none;
-	}
-
-	.menu__more {
-		display: flex;
 	}
 }
 
@@ -232,14 +266,6 @@
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		max-width: 660px;
 		margin-inline: auto;
-	}
-
-	.product-card:nth-child(n + 5) {
-		display: none;
-	}
-
-	.menu__more {
-		display: flex;
 	}
 }
 
