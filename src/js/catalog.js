@@ -1,21 +1,7 @@
-/**
- * Catalog — data loading, card rendering, category switching, and the
- * load-more mechanism.
- *
- * Everything shown on the menu page comes from `src/products.json`, which is
- * the single source of truth: the category pills, the cards, and (in
- * productModal.js) the dialog itself. The HTML contains no product data at all.
- */
-import products from '../products.json';
+
+
 import { formatPrice } from './utils.js';
 
-/**
- * Vite resolves these at build time into hashed output URLs, which is what
- * keeps `base: './'` working when the site is served from a sub-path such as
- * GitHub Pages. A path built by hand (`assets/img/${name}`) would not resolve,
- * because the built page lives in dist/pages/menu/ while assets go to
- * dist/assets/.
- */
 const images = import.meta.glob('../assets/img/*.png', {
 	eager: true,
 	query: '?url',
@@ -23,15 +9,9 @@ const images = import.meta.glob('../assets/img/*.png', {
 });
 const IMAGE_KEY_PREFIX = '../assets/img/';
 
-/** The assignment splits the catalogue at 768px, the same line as the header. */
 const MOBILE_QUERY = '(max-width: 768px)';
 const MOBILE_VISIBLE = 4;
 
-/**
- * Presentation only. The category *keys* still come from the data in
- * first-appearance order — this just supplies the label and the icon the Figma
- * design shows on each pill.
- */
 const CATEGORY_PRESENTATION = {
 	coffee: { label: 'Coffee', icon: '☕' },
 	tea: { label: 'Tea', icon: '🍵' },
@@ -42,7 +22,6 @@ function imageUrl(fileName) {
 	return images[`${IMAGE_KEY_PREFIX}${fileName}`] ?? '';
 }
 
-/** The categories in the order they first appear in the data. */
 function categoriesOf(list) {
 	const seen = [];
 	for (const product of list) {
@@ -54,12 +33,9 @@ function categoriesOf(list) {
 function createCard(product, index) {
 	const card = document.createElement('li');
 	card.className = 'product-card';
-	// The modal resolves the product from this attribute, so a card and its
-	// dialog are always built from one object.
+
 	card.dataset.productIndex = String(index);
 
-	// A real button covering the whole card, so "click any part of the card"
-	// also works from the keyboard without inventing a role or a tabindex.
 	const trigger = document.createElement('button');
 	trigger.type = 'button';
 	trigger.className = 'product-card__trigger';
@@ -120,38 +96,44 @@ function createCategoryTab(category, index) {
 	return tab;
 }
 
-/** Resolves the product a card was built from. Used by the modal. */
+let products = []
+
 export function productFor(card) {
-	return products[Number(card.dataset.productIndex)];
+	return products[Number(card.dataset.productIndex)]
 }
 
-export function initCatalog() {
+export async function initCatalog() {
 	const tabs = document.querySelector('.menu__tabs');
 	const grid = document.querySelector('.menu__grid');
 	const more = document.querySelector('.menu__more');
+	const status = document.querySelector('[data-catalog-status]');
 
 	if (!tabs || !grid || !more) return;
+
+	try {
+		const response = await fetch(new URL('../../data/products.json', document.baseURI));
+		if (!response.ok) throw new Error(`HTTP ${response.status}`);
+		const loaded = await response.json();
+		if (!Array.isArray(loaded)) throw new Error('expected an array');
+		products = loaded;
+	} catch (error) {
+		console.error('Catalog data failed to load:', error);
+		return;
+	}
 
 	const mobile = window.matchMedia(MOBILE_QUERY);
 	const categories = categoriesOf(products);
 
-	// The first category in the data is active on load and on reload. Nothing is
-	// restored from storage — the requirement asks for the first category.
 	let activeCategory = categories[0];
-	/** Whether the user has already asked to see the rest of this category. */
+
 	let revealed = false;
 	let cards = [];
 
-	/**
-	 * How many cards the current viewport allows. Above 768px every card of the
-	 * category is shown, so the load-more control has nothing left to reveal.
-	 */
 	function visibleLimit(total) {
 		if (!mobile.matches) return total;
 		return revealed ? total : MOBILE_VISIBLE;
 	}
 
-	/** Applies the visible count without rebuilding the DOM. */
 	function applyVisibility() {
 		const total = cards.length;
 		const limit = visibleLimit(total);
@@ -160,9 +142,13 @@ export function initCatalog() {
 			card.hidden = position >= limit;
 		});
 
-		// The control is offered only while cards are actually being held back.
-		// Tea has exactly four products, so on mobile it correctly never appears.
 		more.hidden = limit >= total;
+
+		if (status) {
+			const label = (CATEGORY_PRESENTATION[activeCategory] ?? {}).label ?? activeCategory;
+			const visible = cards.filter((card) => !card.hidden).length;
+			status.textContent = `Showing ${visible} of ${total} ${label} products`;
+		}
 	}
 
 	function showCategory(category) {
@@ -179,8 +165,6 @@ export function initCatalog() {
 			.map((product, index) => ({ product, index }))
 			.filter(({ product }) => product.category === category);
 
-		// replaceChildren takes the built nodes directly — no HTML string, so
-		// nothing from the data file is ever parsed as markup.
 		grid.replaceChildren(
 			...indexes.map(({ product, index }) => createCard(product, index)),
 		);
@@ -200,9 +184,6 @@ export function initCatalog() {
 		applyVisibility();
 	});
 
-	// Only fires when the viewport crosses 768px, which is the granularity the
-	// requirement needs — not a per-pixel resize handler. The revealed choice is
-	// kept across the crossing so the list is not re-trimmed under the user.
 	mobile.addEventListener('change', applyVisibility);
 
 	tabs.replaceChildren(...categories.map(createCategoryTab));
