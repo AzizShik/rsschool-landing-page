@@ -1,0 +1,107 @@
+.icon {
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.icon--cup {
+  width: 20px;
+  height: 20px;
+  -webkit-mask-image: url('../assets/icons/coffee-cup.svg');
+  mask-image: url('../assets/icons/coffee-cup.svg');
+}
+
+.icon--cup-large {
+  width: 40px;
+  height: 40px;
+  -webkit-mask-image: url('../assets/icons/coffee-cup.svg');
+  mask-image: url('../assets/icons/coffee-cup.svg');
+}
+
+.icon--arrow-left {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/arrow-left.svg');
+  mask-image: url('../assets/icons/arrow-left.svg');
+}
+
+.icon--arrow-right {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/arrow-right.svg');
+  mask-image: url('../assets/icons/arrow-right.svg');
+}
+
+.icon--apple {
+  width: 36px;
+  height: 36px;
+  -webkit-mask-image: url('../assets/icons/apple.svg');
+  mask-image: url('../assets/icons/apple.svg');
+}
+
+.icon--play {
+  width: 36px;
+  height: 36px;
+  -webkit-mask-image: url('../assets/icons/play-market.svg');
+  mask-image: url('../assets/icons/play-market.svg');
+}
+
+.icon--twitter {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/twitter.svg');
+  mask-image: url('../assets/icons/twitter.svg');
+}
+
+.icon--instagram {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/instagram.svg');
+  mask-image: url('../assets/icons/instagram.svg');
+}
+
+.icon--facebook {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/facebook.svg');
+  mask-image: url('../assets/icons/facebook.svg');
+}
+
+.icon--pin {
+  width: 20px;
+  height: 20px;
+  -webkit-mask-image: url('../assets/icons/pin-alt.svg');
+  mask-image: url('../assets/icons/pin-alt.svg');
+}
+
+.icon--phone {
+  width: 20px;
+  height: 20px;
+  -webkit-mask-image: url('../assets/icons/phone.svg');
+  mask-image: url('../assets/icons/phone.svg');
+}
+
+.icon--clock {
+  width: 20px;
+  height: 20px;
+  -webkit-mask-image: url('../assets/icons/clock.svg');
+  mask-image: url('../assets/icons/clock.svg');
+}
+
+.icon--refresh {
+  width: 24px;
+  height: 24px;
+  -webkit-mask-image: url('../assets/icons/refresh.svg');
+  mask-image: url('../assets/icons/refresh.svg');
+}
+
+@media (forced-colors: active) {
+  .icon {
+    background-color: CanvasText;
+  }
+}
