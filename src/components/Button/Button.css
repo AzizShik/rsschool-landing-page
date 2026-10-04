@@ -1,22 +1,9 @@
-/* ============================================================
-   Button (Coffee House) — shared component
-   ------------------------------------------------------------
-   Figma "button-primary": 200×64 pill, radius 100.
-   Light theme: background = page colour (cream #E1D4C9),
-                text = primary (#403F3D).
-   Dark theme:  background = page colour (#292826),
-                text = primary (#E1D4C9).
-   States (Figma component "button-primary"):
-     default — label only, icon hidden;
-     hover   — a coffee-cup icon fades in next to the label.
-   ============================================================ */
-
 .button {
-  position: relative; /* anchor for the absolutely positioned cup icon */
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  align-self: flex-start; /* keep the 200px pill width inside flex containers */
+  align-self: flex-start;
   min-width: 200px;
   height: 64px;
   padding-inline: 40px;
@@ -38,12 +25,7 @@
   background-color: var(--color-background);
   color: var(--color-text-primary);
 }
-
-/* The coffee-cup fades in next to the centred label on hover/focus. The icon is
-   positioned out of flow so the label stays exactly centred and never shifts.
-   right: 50px = (200 pill − 44 label − 8 gap − 20 icon) / 2 → one gap to the
-   right of the centred label in the 200px pill. */
-.button .cup-icon {
+.button .icon--cup {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -52,8 +34,13 @@
   transition: opacity var(--transition);
 }
 
-.button:hover .cup-icon,
-.button:focus-visible .cup-icon,
-.button.is-active .cup-icon {
+.button:focus-visible .icon--cup,
+.button.is-active .icon--cup {
   opacity: 1;
+}
+
+@media (hover: hover) {
+  .button:hover .icon--cup {
+    opacity: 1;
+  }
 }

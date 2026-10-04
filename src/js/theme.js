@@ -1,6 +1,5 @@
-// Exported so the Vite plugin (vite.config.js) can inject a matching
-// blocking <script> into <head> with the very same keys — the theme contract
-// stays defined in exactly one place.
+
+
 export const THEME_STORAGE_KEY = 'theme'
 export const THEME_ATTRIBUTE = 'data-theme'
 
@@ -46,15 +45,11 @@ export function setTheme(theme) {
   try {
     localStorage.setItem(THEME_STORAGE_KEY, next)
   } catch {
-    // localStorage may be unavailable (e.g. private mode) — theme still applies for this session
+
   }
   syncButtons()
 }
 
-/**
- * Applies the stored/preferred theme and wires up the theme switch buttons.
- * Call after the shared Header has been rendered, so the switch exists in the DOM.
- */
 export function initTheme() {
   setTheme(getStoredTheme() ?? getPreferredTheme())
 

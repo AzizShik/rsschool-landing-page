@@ -1,9 +1,3 @@
-/* ============================================================
-   ThemeToggle — segmented pill switch (Figma "Theme switch")
-   Desktop: 88×44, buttons 36×36
-   Tablet/mobile (≤768px): 104×52, buttons 40×40
-   ============================================================ */
-
 .theme-switch {
 	display: inline-flex;
 	align-items: center;
@@ -28,20 +22,16 @@
 		background-color var(--transition),
 		color var(--transition);
 }
-
-/* The active side always gets the accent fill (#B0907A) with the cream
-   inverse icon — in both themes (Figma "Theme switch" light & dark frames). */
 .theme-switch__button--light.theme-switch__button--active,
 .theme-switch__button--dark.theme-switch__button--active {
 	background-color: var(--color-text-accent);
 	color: var(--color-text-inverse);
 }
-
-/* Hover fills the INACTIVE side with the theme's hover slot (Figma hover
-   frames: light #665F55, dark #403F3D). The active side keeps its accent. */
-.theme-switch__button:not(.theme-switch__button--active):hover {
-	background-color: var(--color-hover-bg);
-	color: var(--color-hover-text);
+@media (hover: hover) {
+	.theme-switch__button:not(.theme-switch__button--active):hover {
+		background-color: var(--color-hover-bg);
+		color: var(--color-hover-text);
+	}
 }
 
 .theme-switch__button:focus-visible {

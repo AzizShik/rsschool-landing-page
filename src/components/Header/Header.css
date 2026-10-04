@@ -1,10 +1,3 @@
-/* ============================================================
-   Header (Coffee House) — shared across pages
-   Desktop: logo | nav (4 links) | theme switch + Menu link
-   Tablet (≤768px): nav hidden, burger button shown
-   Mobile (≤380px): tighter actions + page padding
-   ============================================================ */
-
 .header {
 	position: absolute;
 	width: 100%;
@@ -33,9 +26,6 @@
 .header__logo-mark {
 	display: block;
 }
-
-/* Light theme shows the dark-text logo; the dark theme swaps to the
-   cream-text variant (Figma "Logo" / "Logo [Dark]", e.g. 147813:10242). */
 .header__logo-mark--dark {
 	display: none;
 }
@@ -48,8 +38,6 @@
 	display: block;
 }
 
-/* ---------- Navigation ---------- */
-
 .header__nav {
 	max-width: 500px;
 	width: 100%;
@@ -60,8 +48,6 @@
 	align-items: center;
 	width: 100%;
 	gap: 14px;
-	/* gap: var(--space-xl);  */
-	/* 40px between items (Figma) */
 }
 
 .header__nav-item {
@@ -72,7 +58,7 @@
 	position: relative;
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-xs); /* 8px between label and cup icon (Figma) */
+	gap: var(--space-xs);
 	padding-block: 2px;
 	font-size: var(--font-size-nav);
 	font-weight: var(--font-weight-semibold);
@@ -94,47 +80,49 @@
 	transition: transform var(--transition);
 }
 
-.nav-link:hover::after,
 .nav-link.is-active::after {
 	transform: scaleX(1);
 }
 
-.cup-icon {
-	/* flex: 0 0 auto; */
-	color: inherit;
+@media (hover: hover) {
+	.nav-link:hover::after {
+		transform: scaleX(1);
+	}
 }
 
-/* Section links show no icon in the default state (Figma: coffee-cup visible=False).
-   The icon fades in on hover/focus; the Menu link always carries it. */
-.nav-link .cup-icon {
+.icon--cup {
+	color: inherit;
+}
+.nav-link .icon--cup {
 	opacity: 0;
 	transition: opacity var(--transition);
 }
 
-.nav-link:hover .cup-icon,
-.nav-link:focus-visible .cup-icon,
-.nav-link.is-active .cup-icon {
+.nav-link:focus-visible .icon--cup,
+.nav-link.is-active .icon--cup {
 	opacity: 1;
 }
 
-.nav-link--menu .cup-icon {
+@media (hover: hover) {
+	.nav-link:hover .icon--cup {
+		opacity: 1;
+	}
+}
+
+.nav-link--menu .icon--cup {
 	display: block;
 	opacity: 1;
 }
 
-/* ---------- Actions (theme switch + Menu link + burger) ---------- */
-
 .header__actions {
 	display: flex;
 	align-items: center;
-	gap: var(--space-lg); /* 24px (Figma) */
+	gap: var(--space-lg);
 }
 
 .header__nav-link--menu {
 	white-space: nowrap;
 }
-
-/* Burger button — desktop hidden, shown on tablet/mobile */
 .header__burger {
 	display: none;
 	align-items: center;
@@ -150,27 +138,13 @@
 		color var(--transition);
 }
 
-.header__burger:hover {
-	background-color: var(--color-hover-bg);
-	border-color: var(--color-hover-bg);
-	color: var(--color-hover-text);
+@media (hover: hover) {
+	.header__burger:hover {
+		background-color: var(--color-hover-bg);
+		border-color: var(--color-hover-bg);
+		color: var(--color-hover-text);
+	}
 }
-
-/* ---------- Burger icon ----------
-   Two bars in a square 18×18 box that rotate into a close cross.
-
-   Each bar's resting position is already the box centre: `top: 50%` plus
-   `margin-top: -0.75px` puts the 1.5px bar's centre line on y=9, and
-   `transform-origin` defaults to 50% 50% of the 16×1.5 box, i.e. (9, 9).
-   So `rotate` alone is enough — no `translateY` in the open state. Adding one
-   moves each bar off the centre *before* rotating, which leaves the two
-   diagonals parallel instead of crossing: 11.31 × 14.85 instead of a square.
-
-   Rotated 45° through the centre, a 16px bar spans exactly 11.31px — the close
-   icon's bounding box in Figma (`[M] Burger` → header-menu → menu, 11.313px).
-
-   `aria-expanded` is the only state hook, so the ARIA state and the visual
-   state cannot drift apart. */
 
 .header__burger-icon {
 	position: relative;
@@ -182,19 +156,14 @@
 .header__burger-line {
 	position: absolute;
 	top: 50%;
-	/* Pulls the 1.5px bar up by half its height, so `top: 50%` is the bar's
-	   centre line and the closed-state ±2.5px offsets stay symmetric. */
 	margin-top: -0.75px;
 	left: 1px;
 	width: 16px;
 	height: 1.5px;
-	/* Half the bar's height — the round cap the SVG stroke used to give. */
 	border-radius: 1px;
 	background-color: currentColor;
 	transition: transform var(--transition);
 }
-
-/* Closed: the two bars sit 5px apart, as in Figma. */
 .header__burger-line--top {
 	transform: translateY(-2.5px);
 }
@@ -202,8 +171,6 @@
 .header__burger-line--bottom {
 	transform: translateY(2.5px);
 }
-
-/* Open: both bars collapse onto the centre and cross there. */
 .header__burger[aria-expanded='true'] .header__burger-line--top {
 	transform: rotate(45deg);
 }
@@ -212,37 +179,14 @@
 	transform: rotate(-45deg);
 }
 
-/* ---------- Burger menu panel ----------
-   Figma `[M] Burger` / `[T] Burger`: the panel is not a full-screen overlay.
-   It starts 20px below the 60px header bar (header top 20 + height 60) and
-   runs to the bottom of the viewport, full width, on the page background.
-
-   Measured from the Figma frames: the section links start 60px below the
-   panel's top edge, and the catalog link sits exactly 100px after the nav —
-   the same 100px in both the mobile and the tablet frame, so it is the
-   project-wide section gap token rather than a one-off value.
-
-   The panel scrolls itself when the content is taller than the viewport (a
-   380×600 landscape phone is the tight case). The default
-   `justify-content: flex-start` is kept on purpose: once the content
-   overflows, `space-between` or `flex-end` can push the first link off the
-   top edge where it can no longer be scrolled to. */
-
 .burger-menu[hidden] {
 	display: none;
 }
 
 .burger-menu {
-	/* 100px between the section links and the catalog link (Figma). */
 	gap: var(--space-2xl);
-	/* Scrolls when the content is taller than the viewport. */
 	overflow-y: auto;
 	position: fixed;
-	/* Figma: 20px header offset + 60px header height + 20px gap below it.
-	   `top` + `bottom` alone size the panel to the space under the header. An
-	   explicit `height` must not be added on top of these: it would win over
-	   `bottom` and can make the panel taller than the viewport, which puts its
-	   own bottom edge off-screen and out of reach of its own scrollbar. */
 	top: 100px;
 	right: 0;
 	bottom: 0;
@@ -251,7 +195,6 @@
 	display: flex;
 	flex-direction: column;
 	padding-block: 60px;
-	/* 16px at <=640px, 40px above — the same gutter the page uses. */
 	padding-inline: var(--container-padding);
 	background-color: var(--color-background);
 	opacity: 0;
@@ -260,26 +203,6 @@
 		opacity var(--transition),
 		transform var(--transition);
 }
-
-/* Vertical centring of the whole link group.
-   `justify-content: center` cannot be used here: when the content is taller
-   than the panel it overflows in *both* directions, and the part past the top
-   edge is unreachable because a scroll container cannot scroll to a negative
-   offset — the first links disappear behind the header.
-
-   Auto margins are the fix. They absorb the free space *before* justify-content
-   is even consulted, so:
-     - room to spare  → the free space is split evenly between the two auto
-       margins and the group ends up centred
-     - no room        → both margins resolve to 0, the group sits at the top,
-       and every link stays reachable by scrolling
-
-   `justify-content: safe center` would do the same in one word, but it depends
-   on the `safe` keyword being supported, and it cannot be reasoned about from
-   the CSS alone.
-
-   Targeting first/last child rather than the two classes keeps the group
-   centred as a whole if a block is ever added to the panel. */
 .burger-menu > :first-child {
 	margin-top: auto;
 }
@@ -308,22 +231,36 @@
 }
 
 .burger-menu__link {
+	position: relative;
 	font-size: var(--font-size-burger-link);
 	font-weight: var(--font-weight-semibold);
 	line-height: var(--line-height-burger-link);
 	color: var(--color-text-primary);
 }
 
-/* `flex` (not `inline-flex`) so the link fills the panel's content width —
-   an inline-flex box shrink-wraps its content, which leaves
-   `justify-content: center` with nothing to centre. Figma centres the
-   label + cup pair horizontally: (348 - 143) / 2 = 102.5px, and the frame
-   measures 103px. Same at tablet width: (688 - 143) / 2 = 272.5 vs 273. */
+.burger-menu__link::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -4px;
+	height: 2px;
+	background-color: var(--color-text-accent);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform var(--transition);
+}
+
+@media (hover: hover) {
+	.burger-menu__link:hover::after {
+		transform: scaleX(1);
+	}
+}
 .burger-menu__menu-link {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	gap: var(--space-md); /* 16px label → cup (Figma) */
+	gap: var(--space-md);
 	font-size: var(--font-size-burger-link);
 	font-weight: var(--font-weight-semibold);
 	line-height: var(--line-height-burger-link);
@@ -335,11 +272,11 @@
 		gap: var(--space-xs);
 	}
 
-	.nav-link .cup-icon {
+	.nav-link .icon--cup {
 		display: none;
 	}
 
-	.nav-link--menu .cup-icon {
+	.nav-link--menu .icon--cup {
 		display: block;
 	}
 
@@ -356,11 +293,6 @@
 	}
 }
 
-/* ---------- Tablet (<=768px) ----------
-   The assignment requires the burger menu at 768px and below, and the desktop
-   navigation at 769px and above. Part 1 shipped `max-width: 991px` here, which
-   left the 769-991px band with neither the navigation nor the burger. */
-
 @media (max-width: 768px) {
 	.header__nav {
 		display: none;
@@ -375,10 +307,8 @@
 	}
 }
 
-/* ---------- Mobile (≤380px) ---------- */
-
 @media (max-width: 380px) {
 	.header__actions {
-		gap: var(--space-sm); /* 12px (Figma [M]) */
+		gap: var(--space-sm);
 	}
 }

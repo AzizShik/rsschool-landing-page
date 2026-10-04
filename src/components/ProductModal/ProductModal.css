@@ -1,27 +1,3 @@
-/* ============================================================
-   Product modal — Figma "[D] / [T] / [M] Modal > Coffee"
-   ------------------------------------------------------------
-   Structure:
-     .product-modal__backdrop (fixed, dimmed)
-       > .product-modal (role=dialog)
-           > .product-modal__media   (image)
-           > .product-modal__details (name, description, two option
-                                       groups, total, note, Close)
-
-   Measured from the desktop frame (800×504):
-     padding 16 · image 310 · gap 20 · text column 438 · gap 20
-     between every block · pills 46 tall with a 30px icon circle
-     Total 24/30 split left/right · note 10/14 · Close 44 tall
-
-   The frame is 688 wide at 768px and 342 at 380px, so the media and the
-   details share a row only while both still fit. `flex-wrap` with a 240px
-   basis on the details achieves that without a breakpoint: 310 + 20 + 240
-   = 570, which is above what 380px leaves and below what 768px leaves.
-
-   Colours come from tokens. The dialog is an inverted surface (page shade in
-   light, surface shade in dark) — see --color-modal-* in variables.css.
-   ============================================================ */
-
 .product-modal__backdrop {
 	position: fixed;
 	inset: 0;
@@ -46,13 +22,11 @@
 .product-modal {
 	display: flex;
 	align-items: flex-start;
-	gap: var(--space-lg); /* 20px */
+	gap: var(--space-lg);
 	width: min(800px, 100%);
-	/* The dialog scrolls itself when the options do not fit the viewport,
-	   rather than letting the page behind it scroll. */
 	max-height: 100%;
 	overflow-y: auto;
-	padding: var(--space-md); /* 16px */
+	padding: var(--space-md);
 	border-radius: var(--radius-large);
 	background-color: var(--color-modal-bg);
 	color: var(--color-text-primary);
@@ -64,14 +38,12 @@
 	transform: scale(1);
 }
 
-/* ---------- Image ---------- */
-
 .product-modal__media {
 	flex: 0 0 310px;
 	width: 310px;
 	aspect-ratio: 1;
 	overflow: hidden;
-	border-radius: var(--radius-large); /* 20px */
+	border-radius: var(--radius-large);
 }
 
 .product-modal__img {
@@ -82,8 +54,6 @@
 	transform: scale(1.1);
 }
 
-/* ---------- Text column ---------- */
-
 .product-modal__details {
 	flex: 1 1 240px;
 	display: flex;
@@ -93,7 +63,7 @@
 }
 
 .product-modal__name {
-	font-size: var(--font-size-h3); /* 24px */
+	font-size: var(--font-size-h3);
 	line-height: 30px;
 	color: var(--color-text-primary);
 	margin-bottom: var(--space-sm);
@@ -104,8 +74,6 @@
 	line-height: var(--line-height-body);
 	color: var(--color-text-primary);
 }
-
-/* ---------- Option groups ---------- */
 
 .product-modal__group {
 	min-width: 0;
@@ -126,17 +94,12 @@
 .product-modal__options {
 	display: flex;
 	flex-wrap: wrap;
-	/* 8px between pills — measured from Figma: the additive chips sit at
-	   x=346 / 462 / 611 and are 108 / 141 / 108 wide, so both gaps are 8. */
 	gap: var(--space-xs);
 }
-
-/* The native input stays in the DOM and keeps its keyboard behaviour; the
-   label is what gets painted as a pill. */
 .product-modal__option {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-xs); /* 8px icon → label */
+	gap: var(--space-xs);
 	height: 46px;
 	padding-inline: var(--space-xs);
 	padding-right: var(--space-md);
@@ -150,16 +113,16 @@
 		background-color var(--transition),
 		color var(--transition);
 }
-
-/* Figma `tab-item` carries three states and `State=hover` is identical to
-   `State=active` — same fill, same icon circle, same text colour. So hovering
-   an unselected option shows the selected palette; the difference stays visible
-   because the chosen option is the only one that stays filled after the pointer
-   leaves. */
-.product-modal__option:hover,
 .product-modal__option:has(:checked) {
 	background-color: var(--color-modal-accent);
 	color: var(--color-text-inverse);
+}
+
+@media (hover: hover) {
+	.product-modal__option:hover {
+		background-color: var(--color-modal-accent);
+		color: var(--color-text-inverse);
+	}
 }
 
 .product-modal__option-icon {
@@ -177,16 +140,15 @@
 	font-size: var(--font-size-body);
 	line-height: 1;
 }
-
-/* The selection is styled from the input's own state, so the highlight can
-   never drift from what is actually chosen. */
-.product-modal__option:hover .product-modal__option-icon,
 .product-modal__option:has(:checked) .product-modal__option-icon {
 	background-color: var(--color-modal-selected-option-icon);
 }
 
-/* The label is what shows the focus ring, so the hidden input must not paint
-   one of its own on top of it. */
+@media (hover: hover) {
+	.product-modal__option:hover .product-modal__option-icon {
+		background-color: var(--color-modal-selected-option-icon);
+	}
+}
 .product-modal__option-input:focus-visible {
 	outline: none;
 }
@@ -196,24 +158,20 @@
 	outline-offset: 2px;
 }
 
-/* ---------- Total ---------- */
-
 .product-modal__total {
 	display: flex;
 	justify-content: space-between;
 	gap: var(--space-md);
-	font-size: var(--font-size-h3); /* 24px */
+	font-size: var(--font-size-h3);
 	line-height: 30px;
 	color: var(--color-text-primary);
 }
 
-/* ---------- Note ---------- */
-
 .product-modal__note {
 	display: flex;
 	align-items: flex-start;
-	gap: var(--space-xs); /* 8px icon → text */
-	font-size: var(--font-size-caption); /* 10px */
+	gap: var(--space-xs);
+	font-size: var(--font-size-caption);
 	line-height: var(--line-height-caption);
 	color: var(--color-text-primary);
 	border-top: 1px solid var(--color-border-primary);
@@ -225,8 +183,6 @@
 	flex: 0 0 16px;
 	margin-top: 2px;
 }
-
-/* ---------- Close ---------- */
 
 .product-modal__close {
 	width: 100%;
@@ -244,13 +200,12 @@
 		border-color var(--transition),
 		color var(--transition);
 }
-
-/* Figma `State=hover` drops the stroke entirely — the fill takes over, so the
-   border has to follow or a pale ring sits on top of the new fill. */
-.product-modal__close:hover {
-	color: var(--color-modal-close-button-text-hover);
-	background-color: var(--color-modal-close-button-bg-hover);
-	border-color: transparent;
+@media (hover: hover) {
+	.product-modal__close:hover {
+		color: var(--color-modal-close-button-text-hover);
+		background-color: var(--color-modal-close-button-bg-hover);
+		border-color: transparent;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
