@@ -23,6 +23,12 @@ A responsive two-page landing page for a coffee house, built with vanilla HTML, 
 - Accessibility: skip link, live regions, visible focus states, hover styles guarded by `@media (hover: hover)`, forced-colors and reduced-motion support
 - Responsive layout for 1440 / 768 / 380 px with no horizontal scrolling
 
+## Screenshots
+
+![Home (desktop)](docs/screenshots/home-desktop.png)
+
+![Menu (desktop)](docs/screenshots/menu-desktop.png)
+
 ## Tech stack
 
 - Vanilla JavaScript (ES modules), semantic HTML, modern CSS (custom properties, no frameworks)
