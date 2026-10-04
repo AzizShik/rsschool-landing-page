@@ -108,7 +108,7 @@ page by the `sharedHeader` Vite plugin, so they exist in the static HTML
 without JavaScript. Keep that approach: the burger menu lives inside the
 Header partial and must not be re-rendered per page.
 
-`src/products.json` is the single source of truth for the catalog. A card, its
+`src/public/data/products.json` is the single source of truth for the catalog. A card, its
 modal, and the category list must all derive from it. Do not keep a second
 copy of product data anywhere, and do not hardcode product markup in
 `menu/index.html`.
@@ -164,7 +164,9 @@ src/
 │   ├── productModal.js# modal + options
 │   └── utils/         # small shared helpers
 │
-└── products.json      # catalog data — single source of truth
+├── public/
+│   └── data/
+│       └── products.json  # catalog data — single source of truth
 ```
 
 The `js/` layout above is a proposal, not a fixed contract. Prefer a few
@@ -344,7 +346,7 @@ Required functionality:
 - card visibility management (load-more)
 - product modal window
 - card options with dynamically updated information
-- catalog rendering from `src/products.json`
+- catalog rendering from `src/public/data/products.json` (fetched at runtime)
 
 Every graded behaviour must be hand-written. A ready-made slider, modal,
 burger-menu or utility library is forbidden, and so is a CSS framework.

@@ -246,7 +246,10 @@ decision is explicitly revisited.
 
 ### 3.1 Data file
 
-- **Location:** `src/products.json` — a single flat array of 20 objects.
+- **Location:** `src/public/data/products.json` — a single flat array of 20 objects.
+  It is served as `/data/products.json` in dev and copied verbatim to
+  `dist/data/products.json` on build; the catalog fetches it at runtime, so
+  the bundle contains no inlined copy.
 - **Added field:** the official file had no image reference, so an `image`
   field was added to every object holding a bare file name, e.g.
   `"image": "coffee-1.png"`. This satisfies the requirement that the image be
