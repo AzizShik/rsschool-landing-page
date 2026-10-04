@@ -6,22 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coffee House — Menu</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/img/logo.svg" />
+  <link rel="stylesheet" href="../../styles/common.css" />
   <link rel="stylesheet" href="./menu.css" />
-  <script type="module" src="../../js/main.js"></script>
+  <script type="module" src="./menu.js"></script>
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header id="site-header"></header>
 
-  <main>
+  <main id="main-content">
     <section class="menu container" aria-label="Menu">
       <div class="menu__offer">
         <h1 class="menu__title">Behind each of our cups hides an amazing surprise</h1>
 
-        <!-- Category pills and product cards are rendered by catalog.js from
-           src/products.json. Nothing about the catalogue lives in this file:
-           the product data has a single source of truth, and duplicating it
-           here as markup is what the assignment penalises. -->
         <div class="menu__tabs" role="group" aria-label="Product categories"></div>
       </div>
 
@@ -30,22 +28,17 @@
 
         <div class="menu__more" hidden>
           <button class="menu__refresh" type="button" aria-label="Show more products">
-            {{REFRESH_ICON}}
+            <span class="icon icon--refresh" aria-hidden="true"></span>
           </button>
         </div>
+        <p class="visually-hidden" role="status" data-catalog-status></p>
       </div>
   </main>
 
-  <!-- Product dialog — the shell lives here, the content is built by
-       productModal.js from the same products.json object the card was built
-       from. `hidden` keeps it out of the tab order and the accessibility tree
-       until it is opened. -->
   <div class="product-modal__backdrop" data-product-modal hidden>
     <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-name">
       <div class="product-modal__media">
-        <!-- src is set on open. alt stays empty: the product name is already
-             the dialog's accessible name and is rendered as text right beside
-             the image, so announcing it twice would just be noise. -->
+        
         <img class="product-modal__img" data-modal-image alt="" width="310" height="310" />
       </div>
 
@@ -55,7 +48,6 @@
           <p class="product-modal__desc" data-modal-description></p>
         </div>
 
-        <!-- Size is a single choice (radio), additives are many (checkbox). -->
         <fieldset class="product-modal__group">
           <legend class="product-modal__legend">Size</legend>
           <div class="product-modal__options" data-modal-sizes></div>

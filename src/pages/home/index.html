@@ -6,27 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coffee House — Home</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/img/logo.svg" />
+  <link rel="stylesheet" href="../../styles/common.css" />
   <link rel="stylesheet" href="./home.css" />
-  <script type="module" src="../../js/main.js"></script>
+  <script type="module" src="./home.js"></script>
 </head>
 
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header id="site-header"></header>
 
-  <main>
+  <main id="main-content">
     <section class="hero container" aria-label="Welcome">
       <div class="hero__card">
-        <!-- Decorative backdrop. The copy beside it already carries the
-             message and the footage repeats the same shot as hero.png, so the
-             video adds no information — hence aria-hidden and no controls.
-             hero.png is the matching still frame and doubles as the poster, so
-             the first paint is never an empty rectangle.
-
-             Playback is started from heroVideo.js rather than by an `autoplay`
-             attribute, so prefers-reduced-motion can hold the poster instead of
-             briefly playing first. `muted` is an attribute rather than
-             something set from script because the autoplay policy only exempts
-             a video that is already silent when playback is requested. -->
+        
         <video class="hero__video" data-hero-video muted loop playsinline
           poster="../../assets/img/hero.png" aria-hidden="true">
           <source src="../../assets/videos/hero-bg.mp4" type="video/mp4" />
@@ -41,7 +33,7 @@
           </p>
           <a class="button button--primary hero__button" href="../menu/index.html">
             <span class="hero__button-text">Menu</span>
-            {{CUP_ICON}}
+            <span class="icon icon--cup" aria-hidden="true"></span>
           </a>
         </div>
       </div>
@@ -52,7 +44,7 @@
 
       <div class="slider" aria-roledescription="carousel" aria-label="Favorite coffee">
         <button class="slider__arrow slider__arrow--prev" type="button" aria-label="Previous slide">
-          {{ARROW_LEFT}}
+          <span class="icon icon--arrow-left" aria-hidden="true"></span>
         </button>
 
         <div class="slider__viewport">
@@ -103,15 +95,10 @@
         </div>
 
         <button class="slider__arrow slider__arrow--next" type="button" aria-label="Next slide">
-          {{ARROW_RIGHT}}
+          <span class="icon icon--arrow-right" aria-hidden="true"></span>
         </button>
       </div>
 
-      <!-- Indicators are generated from the slides in slider.js, so the two can
-           never drift apart in count. They are buttons rather than decorative
-           bars because Figma hides the arrows at 380px ([M] slider has only
-           row-slider and controls) — without them the slider would be
-           impossible to move on a phone. -->
       <div class="slider__controls"></div>
       <p class="visually-hidden" role="status" data-slider-status></p>
     </section>
@@ -157,7 +144,7 @@
           </p>
           <div class="mobile-app__buttons">
             <a class="store-button" href="https://www.apple.com/app-store/" target="_blank" rel="noopener noreferrer">
-              <span class="store-button__icon">{{APPLE_ICON}}</span>
+              <span class="store-button__icon icon icon--apple" aria-hidden="true"></span>
               <span class="store-button__label">
                 <span class="store-button__caption">Available on the</span>
                 <span class="store-button__name">App Store</span>
@@ -165,7 +152,7 @@
             </a>
             <a class="store-button" href="https://play.google.com/store/apps/" target="_blank"
               rel="noopener noreferrer">
-              <span class="store-button__icon">{{PLAY_ICON}}</span>
+              <span class="store-button__icon icon icon--play" aria-hidden="true"></span>
               <span class="store-button__label">
                 <span class="store-button__caption">Available on</span>
                 <span class="store-button__name">Google Play</span>

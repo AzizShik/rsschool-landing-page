@@ -1,49 +1,23 @@
-/* ============================================================
-   Menu (catalog) page — Figma node "menu"
-   ------------------------------------------------------------
-   Structure:
-     .menu (container) > .menu__offer (title + category pills)
-       + .menu__grid (product cards) + .menu__more (load-more button)
-
-   The pills and the cards are built by src/js/catalog.js from
-   src/products.json; this file only styles them.
-
-   Desktop (1440):
-     offer 236px = title (60/75, max 800 wide, 2 lines) + 40 + pills 46
-     grid 1052px  = 4×310px cards in 2 rows, gap 40 (cards 310×506:
-                    310 square image radius 40 + 196px body, padding 20)
-
-   How many cards are visible is decided in JavaScript, per the assignment:
-   every card of the active category above 768px, the first four at 768px and
-   below, with the load-more button appearing only while cards are held back.
-
-   Card look: transparent on the cream page with a 1px border in light
-   mode; a surface fill in dark mode (tokens switch automatically).
-   ============================================================ */
+@import '../../components/ProductModal/ProductModal.css';
 
 .menu {
-	margin-top: var(--space-2xl); /* 100px below the fixed header */
-	margin-bottom: var(--space-2xl); /* 100px gap to the footer */
+	margin-top: var(--space-2xl);
+	margin-bottom: var(--space-2xl);
 }
-
-/* ---------- Title + category tabs ---------- */
 
 .menu__offer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: var(--space-xl); /* 40px title → tabs (Figma) */
-	margin-bottom: var(--space-xl); /* 40px tabs → grid (Figma) */
+	gap: var(--space-xl);
+	margin-bottom: var(--space-xl);
 }
 
 .menu__title {
-	max-width: 800px; /* Figma places the 60px title in an 800px box (2 lines) */
+	max-width: 800px;
 	margin-inline: auto;
 	text-align: center;
 	color: var(--color-text-primary);
-	/* Global h2 tokens (60/75 on desktop & tablet, fluid to 32/40 at 380px).
-	   h1's global 72px would push the title to 3 lines, so the catalog
-	   heading is explicitly styled with the h2 scale. */
 	font-size: var(--font-size-h2);
 	font-weight: var(--font-weight-semibold);
 	line-height: var(--line-height-h2);
@@ -51,15 +25,15 @@
 
 .menu__tabs {
 	display: flex;
-	gap: var(--space-md); /* 16px between pills (Figma) */
+	gap: var(--space-md);
 }
 
 .menu__tab {
 	display: inline-flex;
 	align-items: center;
-	gap: var(--space-2xs); /* 4px icon → label (Figma ~3px) */
+	gap: var(--space-2xs);
 	height: 46px;
-	padding-inline: 14px; /* Figma pill padding ~13/16px, pills: 115/90/124 */
+	padding-inline: 14px;
 	border: 1px solid var(--color-border-primary);
 	border-radius: var(--radius-pill);
 	background-color: transparent;
@@ -72,14 +46,18 @@
 		border-color var(--transition),
 		color var(--transition);
 }
-
-/* Active & hover pill — filled with the theme hover slot (Figma tab-item
-   State=active / State=hover: light #665F55, dark #403F3D). */
-.menu__tab--active,
-.menu__tab:hover {
+.menu__tab--active {
 	border-color: var(--color-hover-bg);
 	background-color: var(--color-hover-bg);
 	color: var(--color-hover-text);
+}
+
+@media (hover: hover) {
+	.menu__tab:hover {
+		border-color: var(--color-hover-bg);
+		background-color: var(--color-hover-bg);
+		color: var(--color-hover-text);
+	}
 }
 
 .menu__tab-icon {
@@ -92,30 +70,31 @@
 	border-radius: var(--radius-pill);
 	background-color: var(
 		--color-border-primary
-	); /* inactive circle #c1b6ad / #665f55 */
-	color: var(--color-text-primary); /* emoji glyph */
+	);
+	color: var(--color-text-primary);
 	font-size: var(--font-size-body);
 	line-height: 1;
 }
-
-/* The chip inside the filled pill swaps to the page shade (Figma:
-   light #e1d4c9 / dark #292826) */
-.menu__tab--active .menu__tab-icon,
-.menu__tab:hover .menu__tab-icon {
+.menu__tab--active .menu__tab-icon {
 	background-color: var(--color-background);
 	color: var(--color-text-primary);
 }
 
-/* ---------- Product grid ---------- */
+@media (hover: hover) {
+	.menu__tab:hover .menu__tab-icon {
+		background-color: var(--color-background);
+		color: var(--color-text-primary);
+	}
+}
 
 .menu__grid {
 	display: grid;
 	grid-template-columns: repeat(
 		4,
 		minmax(0, 1fr)
-	); /* 4 across at ≥1360 viewport */
+	);
 	justify-content: center;
-	gap: var(--space-xl); /* 40px both axes (Figma) */
+	gap: var(--space-xl);
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -128,16 +107,9 @@
 	max-width: 310px;
 	margin-inline: auto;
 	border: 1px solid var(--color-border-primary);
-	border-radius: var(--radius-large); /* 40px */
+	border-radius: var(--radius-large);
 	background-color: transparent;
-	/* The card is transparent over the cream page in light mode; dark mode
-	   swaps it to the surface color so it stands out from the page. */
 }
-
-/* The card is a list item, so the "click any part of it" target is a real
-   button filling the card. A button cannot inherit the surrounding font, so
-   these four resets are what stop the card text from rendering in the
-   browser's default button styling. */
 .product-card__trigger {
 	display: flex;
 	flex-direction: column;
@@ -157,20 +129,18 @@
 	outline-offset: 2px;
 }
 
-.product-card:hover .product-card__img {
-	transform: scale(1);
+@media (hover: hover) {
+	.product-card:hover .product-card__img {
+		transform: scale(1);
+	}
 }
-
-/* `.product-card` sets display:flex, which would otherwise beat the user
-   agent's `[hidden] { display: none }` and leave the trimmed cards on screen
-   — and still in the tab order. */
 .product-card[hidden] {
 	display: none;
 }
 
 .product-card__media {
-	aspect-ratio: 1; /* square image box, 310×310 at full card width */
-	overflow: hidden; /* clips the image to the 40px card radius */
+	aspect-ratio: 1;
+	overflow: hidden;
 	border-radius: var(--radius-large);
 }
 
@@ -186,8 +156,8 @@
 .product-card__body {
 	display: flex;
 	flex-direction: column;
-	gap: var(--space-sm); /* 12px between name / desc / price (Figma) */
-	height: 196px; /* name 30 + desc 72 + price 30 + gaps 24 + padding 40 */
+	gap: var(--space-sm);
+	height: 196px;
 	padding: 20px;
 }
 
@@ -200,10 +170,6 @@
 }
 
 .product-card__desc {
-	/* Figma anchors the price regardless of how long the description is, so
-	   the block is a fixed 3-line box. `min-height` rather than `height` keeps
-	   that alignment for the short descriptions while letting a longer one
-	   grow instead of colliding with the price. */
 	min-height: 72px;
 	font-size: var(--font-size-body);
 	font-weight: var(--font-weight-regular);
@@ -211,15 +177,10 @@
 	color: var(--color-text-primary);
 }
 
-/* ---------- Load-more (refresh) button ----------
-   Visibility is owned by catalog.js, not by a media query: the assignment
-   shows the control only while the active category still has cards held back,
-   and that depends on the product count as much as on the width. */
-
 .menu__more {
 	display: flex;
 	justify-content: center;
-	margin-top: 40px; /* Figma gap from grid to the button on tablet/mobile */
+	margin-top: 40px;
 }
 
 .menu__more[hidden] {
@@ -235,23 +196,20 @@
 	border: 1px solid var(--color-border-inverse);
 	border-radius: var(--radius-pill);
 	background-color: transparent;
-	color: var(--color-text-primary); /* icon stroke */
+	color: var(--color-text-primary);
 	transition:
 		background-color var(--transition),
 		border-color var(--transition),
 		color var(--transition);
 }
 
-.menu__refresh:hover {
-	background-color: var(--color-hover-bg);
-	border-color: var(--color-hover-bg);
-	color: var(--color-hover-text);
+@media (hover: hover) {
+	.menu__refresh:hover {
+		background-color: var(--color-hover-bg);
+		border-color: var(--color-hover-bg);
+		color: var(--color-hover-text);
+	}
 }
-
-/* ---------- Responsive ----------
-   Only the column count lives here. How many cards are shown is JavaScript
-   state (catalog.js), because the assignment ties that to 768px and to the
-   number of products in the active category. */
 
 @media (max-width: 1360px) {
 	.menu__grid {
@@ -273,9 +231,6 @@
 	.menu__grid {
 		grid-template-columns: minmax(0, 1fr);
 	}
-
-	/* Compact pills so all three category tabs fit a 348px content column
-	   (Figma mobile tabs: 345px wide in total). */
 	.menu__tab {
 		padding-inline: 8px;
 		gap: var(--space-2xs);

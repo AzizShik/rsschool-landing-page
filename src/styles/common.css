@@ -1,0 +1,10 @@
+@import './fonts.css';
+@import './reset.css';
+@import './variables.css';
+@import './global.css';
+@import './utilities.css';
+@import './icons.css';
+@import '../components/Header/Header.css';
+@import '../components/Footer/Footer.css';
+@import '../components/ThemeToggle/ThemeToggle.css';
+@import '../components/Button/Button.css';
