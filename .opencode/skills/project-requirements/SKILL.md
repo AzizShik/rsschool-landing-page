@@ -1,293 +1,202 @@
 ---
 name: project-requirements
-description: Keeps implementation aligned with the RS School Landing Page Part 1 requirements and prevents accidental Part 2 functionality.
+description: Keeps implementation aligned with the RS School Coffee House landing page requirements for Part 1 and Part 2, and prevents forbidden technologies. Use when implementing, reviewing or planning any work on this project.
 ---
 
 # Project Requirements Skill
 
 ## Purpose
 
-Use this skill whenever implementing, reviewing, or planning work for the RS School Coffee House Landing Page project.
+Use this skill whenever implementing, reviewing, or planning work for the RS
+School Coffee House landing page.
 
-The authoritative project requirements are defined in:
+The authoritative requirements are defined in:
 
-- `AGENTS.md`
-- `docs/requirements/part-1.md`
+- `AGENTS.md` — project rules and architecture
+- `docs/requirements/part-1.md` — Part 1 assignment and checklist
+- `docs/requirements/part-2.md` — Part 2 assignment, checklist, and the
+  project-specific decisions in its Section 3
 
-Always follow both documents.
+Follow all three.
 
-## Scope
+## Current Scope
 
-This project currently implements **Part 1 only**.
+This project is at **Part 2**. Part 1 (markup, design system, shared
+Header/Footer, theme) is complete and must keep working.
 
-Do not implement Part 2 functionality unless the user explicitly requests it.
+Part 2 adds the required interactivity:
 
-Part 1 may include the visual appearance of controls and interactive elements, but functionality that belongs to Part 2 should remain inactive.
+- burger menu
+- slider / carousel
+- category switching in the catalog
+- card visibility management (load-more)
+- product modal window
+- card options with dynamically updated information
 
-## Required Pages
-
-The project must contain two linked pages:
-
-1. Home page
-2. Menu/catalog page
-
-Both pages must use the shared Header and Footer.
-
-## Home Page Requirements
-
-The Home page must contain:
-
-- shared Header
-- Hero section
-- Slider/carousel with at least 3 items
-- at least 2 additional content sections
-- shared Footer
-
-The slider may be visual-only in Part 1.
-
-Do not implement functional slider behavior unless explicitly requested.
-
-## Menu Page Requirements
-
-The Menu page must contain:
-
-- shared Header
-- at least 3 categories
-- category controls
-- at least 8 cards in one category
-- load-more control or pagination
-- shared Footer
-
-Each card must contain:
-
-- image
-- title
-- short description
-- additional information
-
-For the Coffee House design, use the button/control shown in the Figma design.
-
-Category switching, load-more behavior, pagination behavior, and modal behavior may remain inactive in Part 1.
-
-Do not implement their Part 2 functionality unless explicitly requested.
-
-## Header Requirements
-
-The shared Header must contain:
-
-- logo/name linking to the Home page
-- navigation
-- catalog/menu link
-- light/dark theme switcher
-- burger button at widths <= 768px
-
-Navigation must use semantic:
-
-- `nav`
-- `ul`
-- `li`
-- `a`
-
-The burger button may remain inactive in Part 1.
-
-The theme switcher must work.
-
-Its exact visual appearance, placement, dimensions, icons, spacing, and responsive behavior must follow Figma.
-
-## Footer Requirements
-
-The shared Footer must appear on both pages.
-
-It must contain:
-
-- contact information
-- external/social links
-- additional project information
-
-Links that are required by the design or project requirements must work.
-
-## Theme Requirements
-
-Both pages must support:
-
-- light theme
-- dark theme
-- working theme switcher
-- theme persistence using `localStorage`
-- restoring the selected theme after reload
-- preserving the selected theme when navigating between pages
-- toggle state matching the current theme
-- readable text and sufficient contrast
-
-Do not implement separate theme logic independently for each page.
-
-Prefer one shared theme implementation.
-
-## Responsive Requirements
-
-The implementation must work from:
-
-- 1440px
-- 768px
-- 380px
-
-and all intermediate widths.
-
-The implementation must:
-
-- avoid horizontal overflow
-- preserve image proportions
-- avoid scaling the entire page as one image/layout
-- constrain and center content above 1440px
-- hide desktop navigation at <= 768px
-- show the burger button at <= 768px
-
-Do not create separate desktop/mobile implementations when responsive CSS can handle the layout.
-
-## Navigation Requirements
-
-Required navigation links must work.
-
-Use semantic anchors.
-
-Smooth scrolling should be used where appropriate for same-page navigation.
-
-Navigation must work between the two pages.
-
-## Interaction Requirements
-
-Required visual interaction states include:
-
-- hover states
-- appropriate transitions
-- visible interactive affordances
-
-Transitions must not cause neighboring elements to shift unexpectedly.
-
-Part 1 does not require implementing inactive Part 2 interactions.
-
-## Visual Requirements
-
-The Coffee House Figma design is the primary visual reference.
-
-Use Figma to determine:
-
-- layout
-- dimensions
-- spacing
-- colors
-- typography
-- imagery
-- component appearance
-- responsive behavior
-
-Do not invent visual details when they can be determined from Figma.
-
-Pixel-perfect reproduction is not required, but every major block should visually correspond to the design.
-
-## Semantic and Accessibility Requirements
-
-Prefer semantic HTML.
-
-Use:
-
-- `header`
-- `nav`
-- `main`
-- `section`
-- `footer`
-- appropriate heading hierarchy
-- meaningful `alt` text for meaningful images
-- buttons for button actions
-- anchors for navigation
-
-Interactive elements should have appropriate focus states.
-
-Do not add unnecessary ARIA attributes when native HTML semantics are sufficient.
-
-## Shared Components
-
-Header and Footer must have a single source of truth.
-
-Do not duplicate their markup independently across pages.
-
-If the same visual pattern is reused across multiple locations, consider extracting it into a reusable component.
-
-Page-specific sections should remain associated with their page.
-
-## Design System
-
-Prefer shared design tokens instead of repeated hardcoded values.
-
-The project should have semantic tokens for:
-
-- colors
-- typography
-- spacing
-- layout/container dimensions
-- border radius
-- transitions
-
-Theme-specific values should override semantic tokens rather than requiring separate hardcoded component styles.
-
-## Part 2 Protection
-
-Do not add the following functionality unless explicitly requested:
-
-- functional burger menu
-- functional slider/carousel
-- functional category switching
-- functional load-more
-- functional pagination
-- functional product modal
-- other Part 2-specific interactions
-
-Visual controls for these features are allowed when required by the Figma design.
+Everything graded in Part 2 must be implemented. Do not stub it out and do not
+describe it as out of scope.
 
 ## Implementation Decision Rule
 
-Before implementing a feature, determine:
+Before implementing a feature, answer:
 
-1. Is it required by `docs/requirements/part-1.md`?
+1. Is it required by `part-1.md` or `part-2.md`?
 2. Is it visible in the Figma design?
-3. Is it Part 1 functionality or Part 2 functionality?
-4. Does it belong to a shared component?
-5. Can it be implemented using the existing architecture?
+3. Does it belong to a shared component?
+4. Can it be implemented within the existing architecture?
 
-If a feature is not required for Part 1 and would introduce Part 2 behavior, do not implement it.
+If a feature is required, implement it — do not leave it inactive.
+
+## Hard Restrictions (penalty: −100)
+
+These are graded disqualifiers, not style preferences. Never introduce them.
+
+- No JS frameworks: React, Angular, Vue, Svelte, Solid, Preact.
+- No TypeScript. The project is plain JavaScript with JSDoc at most.
+- No CSS frameworks: Bootstrap, Tailwind, Bulma.
+- No ready-made interactivity libraries: no slider/carousel library, no modal
+  or dialog library, no burger-menu library, no utility framework. Every
+  graded behaviour must be written by hand.
+- No replacing markup with screenshots. Images are standalone content only:
+  photos, illustrations, icons.
+
+## Technical Requirements
+
+- Vanilla JavaScript only.
+- Source maps must stay enabled (`build.sourcemap: true`).
+- Code must stay readable and unminified (`build.minify: false`,
+  `build.cssMinify: false`).
+- Must work in the latest Google Chrome.
+- CSS preprocessors and `modern-normalize` are allowed.
+- Bundlers (Vite, Webpack) are allowed.
+
+## Data Handling (10 points)
+
+- All catalog data lives in one array of objects in a separate file:
+  `src/products.json`.
+- Every object carries the fields needed to build a card **and** a modal:
+  `name`, `description`, `image`, `price`, `category`, `sizes`, `additives`.
+- A card and its modal are built from **one and the same object**. Do not
+  duplicate data into HTML, and do not keep a second copy of product data
+  anywhere.
+- Cards are generated dynamically with JavaScript. Product markup must not be
+  hardcoded in `menu/index.html`.
+
+See `part-2.md` Section 3.1 and 3.2 for the file layout, the `image`
+convention, and how the two option groups are normalised.
+
+## Shared Components
+
+- Header and Footer must have a single source of truth. Do not duplicate their
+  markup per page. The current implementation injects the partials through the
+  `sharedHeader` Vite plugin.
+- `products.json` is the single source of truth for the burger menu links and
+  for the catalog, so the burger menu must not grow a private copy of the nav.
+- Page-specific sections stay in their page directory unless there is a real
+  reason to share them.
+
+## Responsive Requirements
+
+Works from 1440px down to 380px and at all intermediate widths.
+
+- No horizontal overflow.
+- Images preserve their proportions.
+- The whole page is never scaled down as one image or block.
+- Content above 1440px stays constrained and centred.
+- **Burger menu works at ≤768px; at ≥769px the menu closes, the burger button
+  is hidden, and the desktop navigation is shown.** The header breakpoint is
+  `max-width: 768px`.
+- Catalog card visibility: above 768px all cards of the active category are
+  shown; at ≤768px the first four are shown with a load-more button when more
+  exist. This is a JavaScript concern as well as a CSS one, because the card
+  count depends on the viewport.
+
+Do not create separate desktop/mobile implementations when CSS can handle the
+layout.
+
+## Theme Requirements
+
+Both pages support light and dark themes with a working switcher, persisted in
+`localStorage`, restored after reload, preserved across navigation, and with
+the toggle state matching the current theme.
+
+- One shared implementation (`src/js/theme.js`). Never per-page theme logic.
+- The theme attribute must be applied before the first paint. A blocking
+  script in `<head>` (injected by the Vite plugin) handles this; do not remove
+  it in favour of `main.js` only, or the page flashes light.
+- New components (modal, burger menu, options) must use the existing semantic
+  tokens and must be readable in both themes.
+
+## Semantic HTML and Accessibility
+
+- Semantic elements: `header`, `nav`, `main`, `section`, `footer`, `ul`, `li`,
+  `a`, `button`.
+- Use `button` for actions and `a` for navigation. Never a `div` standing in
+  for either.
+- Use the correct heading hierarchy.
+- Meaningful `alt` text for meaningful images, empty `alt` for decorative
+  ones.
+- Visible focus states; keyboard operability for every interactive element.
+- Do not add ARIA when native semantics suffice. The Part 1 menu tabs are plain
+  toggle buttons with `aria-pressed`, not a `tablist` — all three tabs shared
+  one `tabpanel`, which is invalid.
+- When a dialog is involved, see the `product-modal` skill for focus
+  management, `Escape`, and scroll locking.
+
+## Design System
+
+Prefer shared design tokens over repeated hardcoded values. Tokens exist for
+colors, typography, spacing, layout/container dimensions, border radius, and
+transitions.
+
+New Part 2 UI (modal, burger menu, options, load-more) must use these tokens
+rather than introducing new magic values.
+
+## Git
+
+The user performs all Git operations. Do not run `git add`, `git commit`,
+`git push`, `git checkout`, `git rebase`, or `git reset` unless explicitly
+asked to perform that specific operation.
 
 ## Validation
 
-After implementation, verify:
+Before declaring Part 2 work done, verify:
 
-- both pages exist
-- both pages are linked
-- Header is shared
-- Footer is shared
-- theme works on both pages
-- theme persists through reload
-- theme persists between pages
-- responsive behavior works at 1440px, 768px, and 380px
-- no horizontal overflow exists
-- required Home sections exist
-- slider contains at least 3 items
-- Menu contains at least 3 categories
-- Menu contains at least 8 cards in one category
-- required controls are visually present
-- required links work
-- hover states exist
-- semantic structure is used
-- no accidental Part 2 functionality was introduced
+- Catalog data is rendered from `products.json`; no product markup in HTML.
+- Opening or reloading the catalog shows `coffee` as the only active category.
+- Switching categories updates the cards with no page reload.
+- Above 768px all cards show and no load-more button appears.
+- At ≤768px the first four cards show and the button appears only when more
+  exist (never for tea, which has exactly 4).
+- Resizing the window re-evaluates the card count and the button state.
+- A card opens a modal with its own data; the backdrop is dimmed; the window is
+  centred.
+- The modal closes on the close button, the backdrop, and `Escape`; clicking
+  inside it does not close it.
+- Page scroll is locked while the burger menu or the modal is open, and is
+  restored on close.
+- At ≤768px the burger opens/closes smoothly and the icon toggles to a cross.
+  At ≥769px the menu closes, the button hides, and the navigation returns.
+- The slider switches forward and back, cycles between the first and last
+  element, animates smoothly, and syncs its indicators.
+- Options in the modal update the price without a page reload, and reset when
+  another card is opened.
+- Everything is checked at 1440px, 768px and 380px, in light and dark themes.
+- No horizontal overflow.
+- `npm run build` succeeds and source maps are emitted.
+
+Do not assume code is correct without checking it in the browser.
 
 ## Priority
 
 When requirements conflict, use this priority:
 
 1. Explicit user instruction
-2. `docs/requirements/part-1.md`
+2. `docs/requirements/part-2.md`, then `docs/requirements/part-1.md`
 3. `AGENTS.md`
 4. Figma design
 5. This skill
 6. General implementation preferences
 
-Never use this skill to override an explicit user request.
+Never use this skill to override an explicit user request, and never use it to
+block functionality that Part 2 requires.

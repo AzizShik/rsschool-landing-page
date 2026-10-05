@@ -1,25 +1,9 @@
-<!--
-  Shared site header (single source of truth).
 
-  This partial is injected into `src/pages/*/index.html` by the `sharedHeader`
-  Vite plugin (see vite.config.js), both in dev and in the production build,
-  so the header exists in the static HTML without running any JavaScript.
-
-  Placeholders replaced by the plugin per page:
-    {{PAGE_HOME}}    – href to the Home page                      (e.g. ./index.html)
-    {{PAGE_MENU}}    – href to the Menu page                      (e.g. ../menu/index.html)
-    {{ANCHOR_ROOT}}  – prefix for home-section anchors            ('' or '../home/index.html')
-    {{MENU_CLASS}}   – extra class for the Menu link              ('' or ' is-active')
-    {{MENU_CURRENT}} – extra attribute for the Menu link          ('' or ' aria-current="page"')
-    {{CUP_ICON}}     – 20px coffee-cup icon (same shape across links)
-    {{CUP_ICON_40}}  – 40px coffee-cup icon (burger menu overlay)
--->
 <header id="site-header" class="header">
   <div class="container header__container">
     <div class="header__row">
       <a class="header__logo" href="{{PAGE_HOME}}" aria-label="Coffee House Resource — Home page">
-        <!-- Light/dark logo variants — the CSS shows one per installed theme
-             (Figma nodes "Logo" / "Logo [Dark]", e.g. 147813:10242). -->
+        
         <img class="header__logo-mark header__logo-mark--light" src="../../assets/img/logo.svg" width="100" height="60" alt="" />
         <img class="header__logo-mark header__logo-mark--dark" src="../../assets/img/logo-dark.svg" width="100" height="60" alt="" />
       </a>
@@ -27,16 +11,16 @@
       <nav class="header__nav" aria-label="Main navigation">
         <ul class="header__nav-list">
           <li class="header__nav-item">
-            <a class="nav-link" href="{{ANCHOR_ROOT}}#favorite-coffee"><span>Favorite coffee</span>{{CUP_ICON}}</a>
+            <a class="nav-link" href="{{ANCHOR_ROOT}}#favorite-coffee"><span>Favorite coffee</span><span class="icon icon--cup" aria-hidden="true"></span></a>
           </li>
           <li class="header__nav-item">
-            <a class="nav-link" href="{{ANCHOR_ROOT}}#about"><span>About</span>{{CUP_ICON}}</a>
+            <a class="nav-link" href="{{ANCHOR_ROOT}}#about"><span>About</span><span class="icon icon--cup" aria-hidden="true"></span></a>
           </li>
           <li class="header__nav-item">
-            <a class="nav-link" href="{{ANCHOR_ROOT}}#mobile-app"><span>Mobile app</span>{{CUP_ICON}}</a>
+            <a class="nav-link" href="{{ANCHOR_ROOT}}#mobile-app"><span>Mobile app</span><span class="icon icon--cup" aria-hidden="true"></span></a>
           </li>
           <li class="header__nav-item">
-            <a class="nav-link" href="{{ANCHOR_ROOT}}#contacts"><span>Contact us</span>{{CUP_ICON}}</a>
+            <a class="nav-link" href="{{ANCHOR_ROOT}}#contacts"><span>Contact us</span><span class="icon icon--cup" aria-hidden="true"></span></a>
           </li>
         </ul>
       </nav>
@@ -62,26 +46,22 @@
                 fill="currentColor" />
             </svg>
 
-
-
           </button>
         </div>
 
         <a class="nav-link nav-link--menu{{MENU_CLASS}}" href="{{PAGE_MENU}}"
-          {{MENU_CURRENT}}><span>Menu</span>{{CUP_ICON}}</a>
+          {{MENU_CURRENT}}><span>Menu</span><span class="icon icon--cup" aria-hidden="true"></span></a>
 
         <button class="header__burger" type="button" aria-label="Open menu" aria-expanded="false">
-          <svg class="header__burger-icon" viewBox="0 0 18 8" width="18" height="8" aria-hidden="true" fill="none"
-            stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
-            <path d="M1 1.5h16" />
-            <path d="M1 6.5h16" />
-          </svg>
+          <span class="header__burger-icon" aria-hidden="true">
+            <span class="header__burger-line header__burger-line--top"></span>
+            <span class="header__burger-line header__burger-line--bottom"></span>
+          </span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Burger menu overlay — visual state only (interaction is Part 2) -->
   <div class="burger-menu" hidden>
     <ul class="burger-menu__nav">
       <li><a class="burger-menu__link" href="{{ANCHOR_ROOT}}#favorite-coffee">Favorite coffee</a></li>
@@ -89,6 +69,7 @@
       <li><a class="burger-menu__link" href="{{ANCHOR_ROOT}}#mobile-app">Mobile app</a></li>
       <li><a class="burger-menu__link" href="{{ANCHOR_ROOT}}#contacts">Contact us</a></li>
     </ul>
-    <a class="burger-menu__menu-link" href="{{PAGE_MENU}}">{{CUP_ICON_40}}<span>Menu</span></a>
+    
+    <a class="burger-menu__menu-link" href="{{PAGE_MENU}}"><span>Menu</span><span class="icon icon--cup-large" aria-hidden="true"></span></a>
   </div>
 </header>

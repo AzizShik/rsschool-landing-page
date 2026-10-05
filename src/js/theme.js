@@ -1,9 +1,17 @@
-const STORAGE_KEY = 'theme'
-const THEME_ATTRIBUTE = 'data-theme'
+
+
+export const THEME_STORAGE_KEY = 'theme'
+export const THEME_ATTRIBUTE = 'data-theme'
+
+const THEMES = ['light', 'dark']
+
+function normalizeTheme(value) {
+  return THEMES.includes(value) ? value : null
+}
 
 function getStoredTheme() {
   try {
-    return localStorage.getItem(STORAGE_KEY)
+    return normalizeTheme(localStorage.getItem(THEME_STORAGE_KEY))
   } catch {
     return null
   }
@@ -32,19 +40,16 @@ function syncButtons() {
 }
 
 export function setTheme(theme) {
-  document.documentElement.setAttribute(THEME_ATTRIBUTE, theme)
+  const next = normalizeTheme(theme) ?? 'light'
+  document.documentElement.setAttribute(THEME_ATTRIBUTE, next)
   try {
-    localStorage.setItem(STORAGE_KEY, theme)
+    localStorage.setItem(THEME_STORAGE_KEY, next)
   } catch {
-    // localStorage may be unavailable (e.g. private mode) — theme still applies for this session
+
   }
   syncButtons()
 }
 
-/**
- * Applies the stored/preferred theme and wires up the theme switch buttons.
- * Call after the shared Header has been rendered, so the switch exists in the DOM.
- */
 export function initTheme() {
   setTheme(getStoredTheme() ?? getPreferredTheme())
 

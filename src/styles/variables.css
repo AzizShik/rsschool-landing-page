@@ -1,108 +1,100 @@
-/* ============================================================
-   Design tokens — Coffee House (from Figma "2026Q3 Copy")
-   Light theme = default (:root), dark theme via [data-theme]
-   ============================================================ */
-
 :root {
-  /* ---------- Typography ---------- */
-  --font-family-base: 'Inter', 'Segoe UI', Tahoma, sans-serif;
+	--font-family-base: 'Inter', 'Segoe UI', Tahoma, sans-serif;
 
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+	--font-weight-regular: 400;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
 
-  --font-size-h1: 72px;
-  --font-size-h2: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 60px);
-  --font-size-h3: 24px;
-  --font-size-body: 16px;
-  --font-size-button: 16px;
-  --font-size-caption: 10px;
-  --font-size-nav: 16px;
-  --font-size-burger-link: 32px;
+	--font-size-h1: 72px;
+	--font-size-h2: clamp(32px, calc(32px + (100vw - 380px) * (28 / 388)), 60px);
+	--font-size-h3: 24px;
+	--font-size-body: 16px;
+	--font-size-button: 16px;
+	--font-size-caption: 10px;
+	--font-size-nav: 16px;
+	--font-size-burger-link: 32px;
 
-  --line-height-h1: 75.6px; /* 1.05 */
-  --line-height-h2: clamp(40px, calc(40px + (100vw - 380px) * (35 / 388)), 75px);
-  --line-height-h3: 30px;   /* 1.25 */
-  --line-height-body: 24px; /* 1.5  */
-  --line-height-button: 24px;
-  --line-height-caption: 14px;
-  --line-height-burger-link: 40px;
+	--line-height-h1: 75.6px;
+	--line-height-h2: clamp(
+		40px,
+		calc(40px + (100vw - 380px) * (35 / 388)),
+		75px
+	);
+	--line-height-h3: 30px;
+	--line-height-body: 24px;
+	--line-height-button: 24px;
+	--line-height-caption: 14px;
+	--line-height-burger-link: 40px;
+	--color-background: #e1d4c9;
+	--color-surface: #665f55;
+	--color-text-primary: #403f3d;
+	--color-text-inverse: #e1d4c9;
+	--color-text-accent: #b0907a;
+	--color-overlay: rgba(64, 63, 61, 0.8);
+	--color-border-primary: #c1b6ad;
+	--color-border-inverse: #665f55;
+	--color-border-accent: #b0907a;
+	--color-hover-bg: #665f55;
+	--color-hover-text: #e1d4c9;
+	--color-modal-bg: #e1d4c9;
+	--color-modal-accent: #665f55;
 
-  /* ---------- Colors — light theme (default) ---------- */
-  --color-background: #e1d4c9;   /* Page */
-  --color-surface: #665f55;      /* Container */
-  --color-text-primary: #403f3d;
-  --color-text-inverse: #e1d4c9;
-  --color-text-accent: #b0907a;
-  --color-overlay: rgba(64, 63, 61, 0.8);
-  --color-border-primary: #c1b6ad;
-  --color-border-inverse: #665f55;
-  --color-border-accent: #b0907a;
+	--color-modal-selected-option-icon: #e1d4c9;
+	--color-modal-unselected-option-icon: #c1b6ad;
+	--color-modal-close-button-border: #665f55;
 
-  /* ---------- Hover / filled controls ----------
-     Outline controls (slider arrows, store buttons, refresh, burger,
-     category tabs, theme switch) fill with the theme's "container" slot on
-     hover; content flips to the cream inverse text. Figma variants:
-     button-icon-dark / button-secondary / tab-item / button-app-store /
-     button-google-play — the fill differs per theme, hence the pair. */
-  --color-hover-bg: #665f55;
-  --color-hover-text: #e1d4c9;
+	--color-modal-close-button-text: #403f3d;
+	--color-modal-close-button-text-hover: #e1d4c9;
 
-  /* ---------- Layout ---------- */
-  --container-max-width: 1360px; /* 1440 − 2×40 page padding */
-  --container-padding: 40px;
-
-  /* ---------- Radius ---------- */
-  --radius-pill: 100px;      /* buttons, theme switch, product cards */
-  --radius-large: 40px;      /* hero / section cards */
-  --radius-medium: 20px;     /* about / menu image boxes */
-
-  /* ---------- Spacing ---------- */
-  --space-2xs: 4px;
-  --space-xs: 8px;
-  --space-sm: 12px;
-  --space-md: 16px;
-  --space-lg: 24px;
-  --space-xl: 40px;
-  --space-2xl: 100px; /* section-to-section gap (Figma) */
-
-  /* ---------- Motion ---------- */
-  --transition-duration: 0.3s;
-  --transition-easing: ease;
-  --transition: var(--transition-duration) var(--transition-easing);
+	--color-modal-close-button-bg-hover: #665f55;
+	--container-max-width: 1360px;
+	--container-padding: 40px;
+	--radius-pill: 100px;
+	--radius-large: 40px;
+	--radius-medium: 20px;
+	--space-2xs: 4px;
+	--space-xs: 8px;
+	--space-sm: 12px;
+	--space-md: 16px;
+	--space-lg: 24px;
+	--space-xl: 40px;
+	--space-2xl: 100px;
+	--transition-duration: 0.3s;
+	--transition-easing: ease;
+	--transition: var(--transition-duration) var(--transition-easing);
 }
-
-/* ---------- Colors — dark theme ---------- */
 [data-theme='dark'] {
-  --color-background: #292826;   /* Page */
-  --color-surface: #403f3d;      /* Container */
-  --color-text-primary: #e1d4c9;
-  --color-text-inverse: #e1d4c9;
-  --color-text-accent: #b0907a;
-  --color-overlay: rgba(41, 40, 38, 0.8);
-  --color-border-primary: #665f55;
-  --color-border-inverse: #c1b6ad;
-  --color-border-accent: #b0907a;
+	--color-background: #292826;
+	--color-surface: #403f3d;
+	--color-text-primary: #e1d4c9;
+	--color-text-inverse: #e1d4c9;
+	--color-text-accent: #b0907a;
+	--color-overlay: rgba(41, 40, 38, 0.8);
+	--color-border-primary: #665f55;
+	--color-border-inverse: #c1b6ad;
+	--color-border-accent: #b0907a;
+	--color-hover-bg: #403f3d;
+	--color-hover-text: #e1d4c9;
 
-  /* Hover fill = the dark container shade in dark mode too (#403F3D) */
-  --color-hover-bg: #403f3d;
-  --color-hover-text: #e1d4c9;
+	--color-modal-bg: #403f3d;
+	--color-modal-accent: #292826;
+
+	--color-modal-selected-option-icon: #403f3d;
+	--color-modal-unselected-option-icon: #665f55;
+
+	--color-modal-close-button-text: #e1d4c9;
+	--color-modal-close-button-text-hover: #e1d4c9;
+	--color-modal-close-button-bg-hover: #292826;
 }
-
-/* ---------- Responsive token overrides ---------- */
-/* Tablet (768px) keeps the 40px page padding (Figma [T]); mobile (380px)
-   narrows it to 16px. */
 @media (max-width: 768px) {
-  :root {
-    --font-size-h1: 42px;
-    --line-height-h1: 48.3px;
-    /* h2 stays fluid via the clamp in :root (Figma keeps desktop sizes
-       on tablet, shrinks only on mobile) */
-  }
+	:root {
+		--font-size-h1: 42px;
+		--line-height-h1: 48.3px;
+	}
 }
 
 @media (max-width: 640px) {
-  :root {
-    --container-padding: 16px;
-  }
+	:root {
+		--container-padding: 16px;
+	}
 }
